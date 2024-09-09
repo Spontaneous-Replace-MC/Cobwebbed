@@ -35,9 +35,11 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.world.World;
 
 /**
- * <h2 style="color:FFC800">幼蛛实体类</h2>
+ * <h2 style="color:FFC800">幼蛛实体</h2>
+ * 幼蛛的基础实体属性，逻辑控制
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class SpiderLarvaEntity extends VariantsSpiderEntity {
 	public SpiderLarvaEntity(EntityType<? extends net.minecraft.entity.mob.SpiderEntity> entityType, World world) {

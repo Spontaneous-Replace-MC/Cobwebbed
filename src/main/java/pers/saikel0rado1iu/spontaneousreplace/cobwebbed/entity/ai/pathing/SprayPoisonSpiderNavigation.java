@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.ai.pathing;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.MobNavigation;
@@ -34,11 +34,12 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * <h2 style="color:FFC800">喷吐毒蛛寻路类</h2>
+ * 喷吐毒蛛的寻路逻辑控制
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class SprayPoisonSpiderNavigation extends MobNavigation {
-	
 	/**
 	 * 获取导航实体，如果实体有目标，则禁用爬墙和目标追寻
 	 */

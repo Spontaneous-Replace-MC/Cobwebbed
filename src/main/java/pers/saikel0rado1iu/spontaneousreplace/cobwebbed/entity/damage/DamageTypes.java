@@ -22,63 +22,29 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.damage;
 
-import com.google.common.collect.ImmutableSet;
-import pers.saikel0rado1iu.silk.api.modpass.ModData;
-import pers.saikel0rado1iu.silk.api.modpass.ModMain;
-import pers.saikel0rado1iu.silk.api.modpass.ModPass;
-import pers.saikel0rado1iu.silk.api.modpass.registry.MainRegistrationProvider;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.RegistryBuilder;
+import net.minecraft.registry.RegistryKey;
+import pers.saikel0rado1iu.silk.api.generate.entity.damage.DamageTypeEntry;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.particle.ParticleTypes;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
-
-import java.util.Set;
 
 /**
- * <h2 style="color:FFC800">主类</h2>
- * 蛛丝网迹的主类
+ * <h2 style="color:FFC800">伤害类型集</h2>
+ * 毛骨森然的所有伤害类型
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
  * @since 1.0.0
  */
-public final class Main implements ModMain {
-	/**
-	 * 模组主函数
-	 *
-	 * @param mod 提供的模组通
-	 */
-	@Override
-	public void main(ModPass mod) {
-	}
+public interface DamageTypes extends DamageTypeEntry {
+	DamageTypes INSTANCE = new DamageTypes() {
+	};
 	
-	/**
-	 * 注册表方法，提供注册表以供注册
-	 *
-	 * @return 注册表的类型集合
-	 */
-	@Override
-	public Set<Class<? extends MainRegistrationProvider<?>>> registry() {
-		return ImmutableSet.of(
-				EntityTypes.class,
-				ParticleTypes.class,
-				SoundEvents.class
-		);
-	}
-	
-	/**
-	 * 用于提供模组数据以基于模组数据实现功能
-	 *
-	 * @return 模组数据
-	 */
-	@Override
-	public ModData modData() {
-		return Cobwebbed.INSTANCE;
-	}
+	RegistryKey<DamageType> SPIDER_TOXIN = DamageTypeEntry.of(SpontaneousReplace.INSTANCE, "spider_toxin");
 	
 	@Override
-	public ModPass registrationNamespace() {
-		return SpontaneousReplace.INSTANCE;
+	default RegistryBuilder.BootstrapFunction<DamageType> bootstrap() {
+		return registerable -> registerable.register(SPIDER_TOXIN, new DamageType("spider_toxin", 0));
 	}
 }

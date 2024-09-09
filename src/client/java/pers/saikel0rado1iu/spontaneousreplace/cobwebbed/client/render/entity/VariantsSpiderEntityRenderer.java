@@ -22,63 +22,36 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity;
 
-import com.google.common.collect.ImmutableSet;
-import pers.saikel0rado1iu.silk.api.modpass.ModData;
-import pers.saikel0rado1iu.silk.api.modpass.ModMain;
-import pers.saikel0rado1iu.silk.api.modpass.ModPass;
-import pers.saikel0rado1iu.silk.api.modpass.registry.MainRegistrationProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.util.Identifier;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.particle.ParticleTypes;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
-
-import java.util.Set;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.VariantsSpiderEntityModel;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.VariantsSpiderEntity;
 
 /**
- * <h2 style="color:FFC800">主类</h2>
- * 蛛丝网迹的主类
+ * <h2 style="color:FFC800">自然更替的蜘蛛渲染类</h2>
+ * <p style="color:FFC800">自然更替的蜘蛛的基础渲染设置</p>
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
- * @since 1.0.0
  */
-public final class Main implements ModMain {
+public abstract class VariantsSpiderEntityRenderer<S extends VariantsSpiderEntity> extends MobEntityRenderer<S, VariantsSpiderEntityModel<S>> {
 	/**
-	 * 模组主函数
+	 * 注册渲染器
 	 *
-	 * @param mod 提供的模组通
+	 * @param context 实体渲染器工厂
+	 * @param shadow  阴影半径
 	 */
-	@Override
-	public void main(ModPass mod) {
-	}
-	
-	/**
-	 * 注册表方法，提供注册表以供注册
-	 *
-	 * @return 注册表的类型集合
-	 */
-	@Override
-	public Set<Class<? extends MainRegistrationProvider<?>>> registry() {
-		return ImmutableSet.of(
-				EntityTypes.class,
-				ParticleTypes.class,
-				SoundEvents.class
-		);
-	}
-	
-	/**
-	 * 用于提供模组数据以基于模组数据实现功能
-	 *
-	 * @return 模组数据
-	 */
-	@Override
-	public ModData modData() {
-		return Cobwebbed.INSTANCE;
+	public VariantsSpiderEntityRenderer(EntityRendererFactory.Context context, VariantsSpiderEntityModel<S> model, float shadow) {
+		super(context, model, shadow);
 	}
 	
 	@Override
-	public ModPass registrationNamespace() {
-		return SpontaneousReplace.INSTANCE;
+	public Identifier getTexture(S spiderEntity) {
+		return SpontaneousReplace.INSTANCE.ofId("textures/entity/" + getTextureId() + ".png");
 	}
+	
+	public abstract String getTextureId();
 }

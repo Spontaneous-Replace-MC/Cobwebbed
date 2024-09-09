@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.ai.pathing;
 
 import net.minecraft.entity.ai.NoPenaltyTargeting;
 import net.minecraft.entity.ai.pathing.MobNavigation;
@@ -34,14 +34,17 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import pers.saikel0rado1iu.silk.api.base.common.util.MathUtil;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderEntity;
 
 import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderData.TARGET_RANGE;
 import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderData.WEAVE_TIME;
 
 /**
  * <h2 style="color:FFC800">织网蜘蛛寻路类</h2>
+ * 织网蜘蛛的寻路逻辑控制
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class WeavingWebSpiderNavigation extends MobNavigation {
 	/**
@@ -95,7 +98,7 @@ public class WeavingWebSpiderNavigation extends MobNavigation {
 	@Override
 	public void tick() {
 		// 如果没有播放筑网动画
-		if (!(mob instanceof WeavingWebSpiderEntity spider && spider.weaveAnimeTime >= WEAVE_TIME)) {
+		if (!(mob instanceof WeavingWebSpiderEntity spider && spider.weaveAnimeTime() >= WEAVE_TIME)) {
 			super.tick();
 			return;
 		}

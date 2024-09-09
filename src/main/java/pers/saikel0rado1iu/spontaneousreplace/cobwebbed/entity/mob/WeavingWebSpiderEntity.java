@@ -42,16 +42,19 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.ai.pathing.WeavingWebSpiderNavigation;
 
 import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderData.*;
 
 /**
- * <h2 style="color:FFC800">织网蜘蛛实体类</h2>
+ * <h2 style="color:FFC800">织网蜘蛛实体</h2>
+ * 织网蜘蛛的基础实体属性，逻辑控制
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class WeavingWebSpiderEntity extends VariantsSpiderEntity {
-	protected final AnimationState weavingAnimationState = new AnimationState();
+	public final AnimationState weavingAnimationState = new AnimationState();
 	protected int weaveInterval = 0;
 	protected int weaveWebCount = 0;
 	protected boolean canPlayWeave = true;
@@ -70,6 +73,15 @@ public class WeavingWebSpiderEntity extends VariantsSpiderEntity {
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, HP)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, DAMAGE)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, SPEED_COEFFICIENT);
+	}
+	
+	/**
+	 * 获取织网动画时间属性
+	 *
+	 * @return 织网动画时间
+	 */
+	public int weaveAnimeTime() {
+		return weaveAnimeTime;
 	}
 	
 	/**

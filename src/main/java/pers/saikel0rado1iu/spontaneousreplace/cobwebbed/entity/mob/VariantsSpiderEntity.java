@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * <h2 style="color:FFC800">变种蜘蛛实体</h2>
- * 蛛丝网迹的蜘蛛的基础实体属性，逻辑控制
+ * 蛛丝网迹的变种蜘蛛的基础实体属性，逻辑控制
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
  * @since 1.0.0
