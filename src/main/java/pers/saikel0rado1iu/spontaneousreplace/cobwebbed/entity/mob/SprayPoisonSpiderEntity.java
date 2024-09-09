@@ -37,16 +37,20 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.world.World;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.ai.pathing.SprayPoisonSpiderNavigation;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
 
 import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.SprayPoisonSpiderData.*;
 
 /**
- * <h2 style="color:FFC800">喷吐毒蛛实体类</h2>
+ * <h2 style="color:FFC800">喷吐毒蛛实体</h2>
+ * 喷吐毒蛛的基础实体属性，逻辑控制
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class SprayPoisonSpiderEntity extends VariantsSpiderEntity implements RangedAttackMob {
-	protected final AnimationState sprayingAnimationState = new AnimationState();
+	public final AnimationState sprayingAnimationState = new AnimationState();
 	
 	/**
 	 * 构建喷吐毒蛛
@@ -112,8 +116,9 @@ public class SprayPoisonSpiderEntity extends VariantsSpiderEntity implements Ran
 				target.getBodyY(0.33) - toxinEntity.getY() + Math.sqrt(Math.pow(target.getX() - getX(), 2) + Math.pow(target.getZ() - getZ(), 2)) * 0.2,
 				target.getZ() - getZ(),
 				1.5F, 5F);
-		if (!isSilent())
-			getWorld().playSound(null, getX(), getY(), getZ(), SPRAY_TOXIN, getSoundCategory(), 1F, 1.0F + (random.nextFloat() - random.nextFloat()) * 0.2F);
+		if (!isSilent()) {
+			getWorld().playSound(null, getX(), getY(), getZ(), SoundEvents.SPRAY_TOXIN, getSoundCategory(), 1F, 1.0F + (random.nextFloat() - random.nextFloat()) * 0.2F);
+		}
 		getWorld().spawnEntity(toxinEntity);
 	}
 	

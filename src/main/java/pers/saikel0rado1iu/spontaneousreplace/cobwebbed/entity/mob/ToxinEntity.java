@@ -39,15 +39,16 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import pers.saikel0rado1iu.sr.gen.data.DamageTypes;
-
-import static pers.saikel0rado1iu.sr.data.EntityTypes.TOXIN;
-import static pers.saikel0rado1iu.sr.data.ParticleTypes.TOXIN_PARTICLE;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.damage.DamageTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.particle.ParticleTypes;
 
 /**
- * <h2 style="color:FFC800">毒素实体类</h2>
+ * <h2 style="color:FFC800">毒素实体</h2>
+ * 喷吐毒蛛的喷吐毒素实体
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class ToxinEntity extends ProjectileEntity {
 	/**
@@ -61,7 +62,7 @@ public class ToxinEntity extends ProjectileEntity {
 	 * 构建毒素实体
 	 */
 	public ToxinEntity(World world, MobEntity owner) {
-		this(TOXIN, world);
+		this(EntityTypes.TOXIN, world);
 		setOwner(owner);
 		setPosition(owner.getX() - (double) (owner.getWidth() + 1.0f) * 0.5 * (double) MathHelper.sin(owner.bodyYaw * ((float) Math.PI / 180)),
 				owner.getEyeY() - (double) 0.1f, owner.getZ() + (double) (owner.getWidth() + 1.0f) * 0.5 * (double) MathHelper.cos(owner.bodyYaw * ((float) Math.PI / 180)));
@@ -130,7 +131,7 @@ public class ToxinEntity extends ProjectileEntity {
 		double f = packet.getVelocityZ();
 		for (int i = 0; i < 7; ++i) {
 			double g = 0.4 + 0.1 * (double) i;
-			getWorld().addParticle(TOXIN_PARTICLE, getX(), getY(), getZ(), d * g, e, f * g);
+			getWorld().addParticle(ParticleTypes.TOXIN_PARTICLE, getX(), getY(), getZ(), d * g, e, f * g);
 		}
 		setVelocity(d, e, f);
 	}
