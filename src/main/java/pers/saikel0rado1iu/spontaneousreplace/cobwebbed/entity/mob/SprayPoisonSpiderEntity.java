@@ -37,6 +37,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.world.World;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
 
 import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.SprayPoisonSpiderData.*;
 
@@ -113,7 +114,7 @@ public class SprayPoisonSpiderEntity extends VariantsSpiderEntity implements Ran
 				target.getZ() - getZ(),
 				1.5F, 5F);
 		if (!isSilent())
-			getWorld().playSound(null, getX(), getY(), getZ(), SPRAY_TOXIN, getSoundCategory(), 1F, 1.0F + (random.nextFloat() - random.nextFloat()) * 0.2F);
+			getWorld().playSound(null, getX(), getY(), getZ(), SoundEvents.SPRAY_TOXIN, getSoundCategory(), 1F, 1.0F + (random.nextFloat() - random.nextFloat()) * 0.2F);
 		getWorld().spawnEntity(toxinEntity);
 	}
 	

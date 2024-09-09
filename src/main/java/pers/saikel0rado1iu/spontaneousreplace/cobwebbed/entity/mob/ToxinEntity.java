@@ -39,10 +39,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import pers.saikel0rado1iu.sr.gen.data.DamageTypes;
-
-import static pers.saikel0rado1iu.sr.data.EntityTypes.TOXIN;
-import static pers.saikel0rado1iu.sr.data.ParticleTypes.TOXIN_PARTICLE;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
 
 /**
  * <h2 style="color:FFC800">毒素实体类</h2>
@@ -61,7 +58,7 @@ public class ToxinEntity extends ProjectileEntity {
 	 * 构建毒素实体
 	 */
 	public ToxinEntity(World world, MobEntity owner) {
-		this(TOXIN, world);
+		this(EntityTypes.TOXIN, world);
 		setOwner(owner);
 		setPosition(owner.getX() - (double) (owner.getWidth() + 1.0f) * 0.5 * (double) MathHelper.sin(owner.bodyYaw * ((float) Math.PI / 180)),
 				owner.getEyeY() - (double) 0.1f, owner.getZ() + (double) (owner.getWidth() + 1.0f) * 0.5 * (double) MathHelper.cos(owner.bodyYaw * ((float) Math.PI / 180)));
