@@ -38,12 +38,18 @@
 			"pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.ModMenu"
 		],
 		"main": [
+			"pers.saikel0rado1iu.spontaneousreplace.Main",
+			"pers.saikel0rado1iu.spontaneousreplace.terriforest.Main",
 			"pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Main"
 		],
 		"client": [
+			"pers.saikel0rado1iu.spontaneousreplace.client.Client",
+			"pers.saikel0rado1iu.spontaneousreplace.terriforest.client.Client",
 			"pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.Client"
 		],
 		"preLaunch": [
+			"pers.saikel0rado1iu.spontaneousreplace.Launch",
+			"pers.saikel0rado1iu.spontaneousreplace.terriforest.Launch",
 			"pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Launch"
 		]
 	},
