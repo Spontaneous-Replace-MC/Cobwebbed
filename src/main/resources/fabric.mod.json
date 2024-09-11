@@ -48,8 +48,6 @@
 			"pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.Client"
 		],
 		"preLaunch": [
-			"pers.saikel0rado1iu.spontaneousreplace.Launch",
-			"pers.saikel0rado1iu.spontaneousreplace.terriforest.Launch",
 			"pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Launch"
 		]
 	},
