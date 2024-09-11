@@ -37,10 +37,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.world.World;
+import pers.saikel0rado1iu.silk.api.base.common.util.TickUtil;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.ai.pathing.SprayPoisonSpiderNavigation;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
-
-import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.SprayPoisonSpiderData.*;
 
 /**
  * <h2 style="color:FFC800">喷吐毒蛛实体</h2>
@@ -50,6 +49,14 @@ import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.SprayP
  * @since 1.0.0
  */
 public class SprayPoisonSpiderEntity extends VariantsSpiderEntity implements RangedAttackMob {
+	public static final String ID = "spray_poison_spider";
+	public static final float ESCAPE_SPEED_RADIO = 1.5F;
+	public static final float SPEED_RADIO = 1.25F;
+	public static final int SHOOT_INTERVAL = TickUtil.getTick(2);
+	public static final float MAX_SHOOT_RANGE = 20;
+	public static final float MELEE_ATTACK_RANGE = 3;
+	public static final float MELEE_CANCEL_RANGE = 2.5F;
+	public static final float ESCAPE_RANGE = 7;
 	public final AnimationState sprayingAnimationState = new AnimationState();
 	
 	/**
@@ -57,7 +64,7 @@ public class SprayPoisonSpiderEntity extends VariantsSpiderEntity implements Ran
 	 */
 	public SprayPoisonSpiderEntity(EntityType<? extends net.minecraft.entity.mob.SpiderEntity> entityType, World world) {
 		super(entityType, world);
-		setExpPoint(EXP_RADIO);
+		setExpPoint(1.5);
 	}
 	
 	/**
@@ -65,9 +72,9 @@ public class SprayPoisonSpiderEntity extends VariantsSpiderEntity implements Ran
 	 */
 	public static DefaultAttributeContainer.Builder createSpiderAttributes() {
 		return HostileEntity.createHostileAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, HP)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, DAMAGE)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, SPEED_COEFFICIENT);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 12)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3);
 	}
 	
 	/**

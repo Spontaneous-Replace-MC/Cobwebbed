@@ -26,25 +26,25 @@ package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature.SprayPoisonSpiderEyes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.EntityModelLayers;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.SprayPoisonSpiderEntityModel;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.SprayPoisonSpiderData;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.SprayPoisonSpiderEntity;
 
-import static pers.saikel0rado1iu.sr.data.client.ModelLayers.SPRAY_POISON_SPIDER_LAYER;
-
 /**
- * <h2 style="color:FFC800">喷吐毒蛛渲染类</h2>
+ * <h2 style="color:FFC800">喷吐毒蛛实体渲染器</h2>
+ * 喷吐毒蛛的实体渲染器
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class SprayPoisonSpiderEntityRenderer<T extends SprayPoisonSpiderEntity> extends VariantsSpiderEntityRenderer<T> {
+	public static final float MODEL_SCALE = 0.9F;
+	
 	/**
 	 * 构建渲染
 	 */
 	public SprayPoisonSpiderEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new SprayPoisonSpiderEntityModel<>(context.getPart(SPRAY_POISON_SPIDER_LAYER)), SprayPoisonSpiderData.MODEL_SHADOW);
-		this.addFeature(new SprayPoisonSpiderEyes<>(this));
+		super(context, new SprayPoisonSpiderEntityModel<>(context.getPart(EntityModelLayers.SPRAY_POISON_SPIDER_LAYER)), 0.75F);
 	}
 	
 	/**
@@ -52,11 +52,11 @@ public class SprayPoisonSpiderEntityRenderer<T extends SprayPoisonSpiderEntity> 
 	 */
 	@Override
 	protected void scale(T entity, MatrixStack matrices, float amount) {
-		matrices.scale(SprayPoisonSpiderData.MODEL_SCALE, SprayPoisonSpiderData.MODEL_SCALE, SprayPoisonSpiderData.MODEL_SCALE);
+		matrices.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
 	}
 	
 	@Override
 	public String getTextureId() {
-		return SprayPoisonSpiderData.ID;
+		return SprayPoisonSpiderEntity.ID;
 	}
 }

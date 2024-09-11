@@ -22,20 +22,20 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.entity;
 
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderEntity;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderEyes;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderModel;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.entity.BlockEntityType;
+import pers.saikel0rado1iu.silk.api.spinningjenny.BlockEntityTypeRegistry;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
 
 /**
- * <h2 style="color:FFC800">织网蜘蛛眼部发光类</h2>
+ * <h2 style="color:FFC800">方块实体类型集</h2>
+ * 蛛丝网迹的所有方块实体类型
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
-public class WeavingWebSpiderEyes<T extends SpiderEntity, M extends SpiderModel<T>> extends SpiderEyes<T, M> {
-	public WeavingWebSpiderEyes(FeatureRendererContext<T, M> featureRendererContext) {
-		super(featureRendererContext);
-	}
+public interface BlockEntityTypes extends BlockEntityTypeRegistry {
+	BlockEntityType<SpiderEggCocoonBlockEntity> SPIDER_EGG_COCOON = BlockEntityTypeRegistry.registrar(() -> FabricBlockEntityTypeBuilder.create(SpiderEggCocoonBlockEntity::new, Blocks.SPIDER_EGG_COCOON).build()).register("spider_egg_cocoon");
 }

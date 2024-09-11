@@ -22,20 +22,18 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect;
 
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderEntity;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderEyes;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderModel;
+
+import pers.saikel0rado1iu.silk.api.spinningjenny.StatusEffectRegistry;
 
 /**
- * <h2 style="color:FFC800">幼蛛眼部发光类</h2>
+ * <h2 style="color:FFC800">状态效果集</h2>
+ * 蛛丝网迹的所有状态效果
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
-public class SpiderLarvaEyes<T extends SpiderEntity, M extends SpiderModel<T>> extends SpiderEyes<T, M> {
-	public SpiderLarvaEyes(FeatureRendererContext<T, M> featureRendererContext) {
-		super(featureRendererContext);
-	}
+public interface StatusEffects extends StatusEffectRegistry {
+	SpiderCamouflage SPIDER_CAMOUFLAGE = StatusEffectRegistry.registrar(SpiderCamouflage::new).register("spider_camouflage");
 }

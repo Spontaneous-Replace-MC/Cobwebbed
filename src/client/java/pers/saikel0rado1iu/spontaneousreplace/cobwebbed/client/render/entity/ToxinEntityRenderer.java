@@ -33,22 +33,23 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.EntityModelLayers;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.ToxinEntityModel;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.ToxinEntity;
-import pers.saikel0rado1iu.sr.data.SpontaneousReplace;
-
-import static pers.saikel0rado1iu.sr.data.client.ModelLayers.TOXIN_LAYER;
 
 /**
- * <h2 style="color:FFC800">毒素渲染类</h2>
+ * <h2 style="color:FFC800">毒素实体渲染器</h2>
+ * 喷吐毒蛛的喷吐毒素的实体渲染器
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class ToxinEntityRenderer extends EntityRenderer<ToxinEntity> {
 	/**
 	 * 纹理路径
 	 */
-	protected static final Identifier TEXTURE = new Identifier(SpontaneousReplace.DATA.getId(), "textures/entity/toxin_projectile.png");
+	protected static final Identifier TEXTURE = SpontaneousReplace.INSTANCE.ofId("textures/entity/toxin_projectile.png");
 	/**
 	 * 毒素模型
 	 */
@@ -59,7 +60,7 @@ public class ToxinEntityRenderer extends EntityRenderer<ToxinEntity> {
 	 */
 	public ToxinEntityRenderer(EntityRendererFactory.Context context) {
 		super(context);
-		model = new ToxinEntityModel<>(context.getPart(TOXIN_LAYER));
+		model = new ToxinEntityModel<>(context.getPart(EntityModelLayers.TOXIN_LAYER));
 	}
 	
 	/**

@@ -22,28 +22,18 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.state.property;
 
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.feature.EyesFeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.util.Identifier;
-import pers.saikel0rado1iu.sr.data.SpontaneousReplace;
+import net.minecraft.state.property.EnumProperty;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.chrysalis.ChrysalisStyle;
 
 /**
- * <h2 style="color:FFC800">自然更替的蜘蛛眼部发光类</h2>
- * <p style="color:FFC800">自然更替的蜘蛛的基础眼部发光纹理设置</p>
+ * <h2 style="color:FFC800">属性集</h2>
+ * 蛛丝网迹的所有方块状态属性
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
-public class
-SpiderEyes<S extends SpiderEntity, M extends SpiderModel<S>> extends EyesFeatureRenderer<S, M> {
-	public SpiderEyes(FeatureRendererContext<S, M> featureRendererContext) {
-		super(featureRendererContext);
-	}
-	
-	@Override
-	public RenderLayer getEyesTexture() {
-		return RenderLayer.getEyes(new Identifier(SpontaneousReplace.DATA.getId(), "textures/entity/spider_eyes.png"));
-	}
+public interface Properties {
+	EnumProperty<ChrysalisStyle> CHRYSALIS_STYLE = EnumProperty.of("chrysalis_style", ChrysalisStyle.class);
 }

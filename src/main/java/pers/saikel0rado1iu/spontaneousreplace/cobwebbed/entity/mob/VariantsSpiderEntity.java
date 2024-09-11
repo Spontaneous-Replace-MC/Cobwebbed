@@ -52,6 +52,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public abstract class VariantsSpiderEntity extends SpiderEntity {
+	public static final int SPIDER_EYES_COLOR = 0xA80E0E;
 	public final AnimationState walkingAnimationState = new AnimationState();
 	public final AnimationState swimmingAnimationState = new AnimationState();
 	public final AnimationState climbingAnimationState = new AnimationState();

@@ -28,14 +28,16 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature.VariantsSpiderEyesFeatureRenderer;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.VariantsSpiderEntityModel;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.VariantsSpiderEntity;
 
 /**
- * <h2 style="color:FFC800">自然更替的蜘蛛渲染类</h2>
- * <p style="color:FFC800">自然更替的蜘蛛的基础渲染设置</p>
+ * <h2 style="color:FFC800">变种蜘蛛实体渲染器</h2>
+ * 蛛丝网迹的变种蜘蛛的基础渲染设置
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public abstract class VariantsSpiderEntityRenderer<S extends VariantsSpiderEntity> extends MobEntityRenderer<S, VariantsSpiderEntityModel<S>> {
 	/**
@@ -46,6 +48,7 @@ public abstract class VariantsSpiderEntityRenderer<S extends VariantsSpiderEntit
 	 */
 	public VariantsSpiderEntityRenderer(EntityRendererFactory.Context context, VariantsSpiderEntityModel<S> model, float shadow) {
 		super(context, model, shadow);
+		addFeature(new VariantsSpiderEyesFeatureRenderer<>(this));
 	}
 	
 	@Override

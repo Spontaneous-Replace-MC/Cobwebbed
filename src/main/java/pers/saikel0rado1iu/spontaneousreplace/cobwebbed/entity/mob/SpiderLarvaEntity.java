@@ -42,9 +42,13 @@ import net.minecraft.world.World;
  * @since 1.0.0
  */
 public class SpiderLarvaEntity extends VariantsSpiderEntity {
+	public static final String ID = "spider_larva";
+	public static final float ATTACK_RANGE = 3;
+	public static final float RETREAT_RANGE = 1;
+	
 	public SpiderLarvaEntity(EntityType<? extends net.minecraft.entity.mob.SpiderEntity> entityType, World world) {
 		super(entityType, world);
-		setExpPoint(SpiderLarvaData.EXP_RADIO);
+		setExpPoint(0.5);
 	}
 	
 	/**
@@ -52,9 +56,9 @@ public class SpiderLarvaEntity extends VariantsSpiderEntity {
 	 */
 	public static DefaultAttributeContainer.Builder createSpiderAttributes() {
 		return HostileEntity.createHostileAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, SpiderLarvaData.HP)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, SpiderLarvaData.DAMAGE)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, SpiderLarvaData.SPEED_COEFFICIENT);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 6)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4);
 	}
 	
 	/**
@@ -86,13 +90,13 @@ public class SpiderLarvaEntity extends VariantsSpiderEntity {
 		
 		@Override
 		public boolean canStart() {
-			if (mob.getTarget() != null) return super.canStart() && mob.distanceTo(mob.getTarget()) < SpiderLarvaData.ATTACK_RANGE;
+			if (mob.getTarget() != null) return super.canStart() && mob.distanceTo(mob.getTarget()) < ATTACK_RANGE;
 			return false;
 		}
 		
 		@Override
 		public boolean shouldContinue() {
-			return super.shouldContinue() && mob.distanceTo(mob.getTarget()) > SpiderLarvaData.RETREAT_RANGE;
+			return super.shouldContinue() && mob.distanceTo(mob.getTarget()) > RETREAT_RANGE;
 		}
 	}
 	
@@ -108,8 +112,8 @@ public class SpiderLarvaEntity extends VariantsSpiderEntity {
 		@Override
 		protected boolean isInDanger() {
 			if (mob.getTarget() == null) return super.isInDanger();
-			else if (mob.distanceTo(mob.getTarget()) > SpiderLarvaData.ATTACK_RANGE) return false;
-			return super.isInDanger() || mob.distanceTo(mob.getTarget()) < SpiderLarvaData.ATTACK_RANGE;
+			else if (mob.distanceTo(mob.getTarget()) > ATTACK_RANGE) return false;
+			return super.isInDanger() || mob.distanceTo(mob.getTarget()) < ATTACK_RANGE;
 		}
 	}
 }

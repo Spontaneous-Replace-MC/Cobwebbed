@@ -22,82 +22,29 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature;
 
-import pers.saikel0rado1iu.silk.api.base.common.util.TickUtil;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.feature.EyesFeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.VariantsSpiderEntityModel;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.VariantsSpiderEntity;
 
 /**
- * <h2 style="color:FFC800">喷吐毒蛛数据类</h2>
+ * <h2 style="color:FFC800">变种蜘蛛眼部要素渲染器</h2>
+ * 蛛丝网迹的变种蜘蛛的基础眼部发光纹理设置
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
-public interface SprayPoisonSpiderData {
-	/**
-	 * 喷吐毒蛛 ID
-	 */
-	String ID = "spray_poison_spider";
-	/**
-	 * 血量
-	 */
-	float HP = 12;
-	/**
-	 * 伤害
-	 */
-	float DAMAGE = 2;
-	/**
-	 * 移速系数 | 移动速度: ~2.25m/s
-	 */
-	float SPEED_COEFFICIENT = 0.3F;
-	/**
-	 * 经验倍率
-	 */
-	float EXP_RADIO = 1.5F;
-	/**
-	 * 模型阴影半径
-	 */
-	float MODEL_SHADOW = 0.75F;
-	/**
-	 * 模型缩放
-	 */
-	float MODEL_SCALE = 0.9F;
-	/**
-	 * 碰撞箱宽
-	 */
-	float BOX_WEIGHT = 1.5F;
-	/**
-	 * 碰撞箱高
-	 */
-	float BOX_HEIGHT = 0.85F;
-	/**
-	 * 蜘蛛皮肤颜色
-	 */
-	int SPIDER_SKIN_COLOR = 0x0F5000;
-	/**
-	 * 逃离速度增幅
-	 */
-	float ESCAPE_SPEED_RADIO = 1.5F;
-	/**
-	 * 速度增幅
-	 */
-	float SPEED_RADIO = 1.25F;
-	/**
-	 * 射击间隔
-	 */
-	int SHOOT_INTERVAL = TickUtil.getTick(2);
-	/**
-	 * 最大射击范围
-	 */
-	float MAX_SHOOT_RANGE = 20;
-	/**
-	 * 近战攻击范围
-	 */
-	float MELEE_ATTACK_RANGE = 3;
-	/**
-	 * 近战取消范围
-	 */
-	float MELEE_CANCEL_RANGE = 2.5F;
-	/**
-	 * 逃离范围
-	 */
-	float ESCAPE_RANGE = 7;
+public class VariantsSpiderEyesFeatureRenderer<S extends VariantsSpiderEntity, M extends VariantsSpiderEntityModel<S>> extends EyesFeatureRenderer<S, M> {
+	public VariantsSpiderEyesFeatureRenderer(FeatureRendererContext<S, M> featureRendererContext) {
+		super(featureRendererContext);
+	}
+	
+	@Override
+	public RenderLayer getEyesTexture() {
+		return RenderLayer.getEyes(SpontaneousReplace.INSTANCE.ofId("textures/entity/variants_spider_eyes.png"));
+	}
 }

@@ -22,60 +22,38 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block;
+
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CarpetBlock;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.SpiderEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 /**
- * <h2 style="color:FFC800">幼蛛数据类</h2>
+ * <h2 style="color:FFC800">覆地蛛丝方块</h2>
+ * 覆地蛛丝方块，一种苔藓类方块，踩在此方块上的非蜘蛛类实体会减速
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
-public interface SpiderLarvaData {
+public class GossamerCarpetBlock extends CarpetBlock {
+	public static final float COBWEB_DECELERATION = 0.25F;
+	
+	public GossamerCarpetBlock(Settings settings) {
+		super(settings);
+	}
+	
 	/**
-	 * 幼蛛 ID
+	 * 在方块上减速 25%
 	 */
-	String ID = "spider_larva";
-	/**
-	 * 血量
-	 */
-	float HP = 6;
-	/**
-	 * 伤害
-	 */
-	float DAMAGE = 1;
-	/**
-	 * 移速系数 | 移动速度: ~4.20m/s
-	 */
-	float SPEED_COEFFICIENT = 0.4F;
-	/**
-	 * 经验倍率
-	 */
-	float EXP_RADIO = 0.5F;
-	/**
-	 * 模型阴影半径
-	 */
-	float MODEL_SHADOW = 0.35F;
-	/**
-	 * 模型缩放
-	 */
-	float MODEL_SCALE = 0.5F;
-	/**
-	 * 碰撞箱宽
-	 */
-	float BOX_WEIGHT = 0.75F;
-	/**
-	 * 碰撞箱高
-	 */
-	float BOX_HEIGHT = 0.5F;
-	/**
-	 * 蜘蛛皮肤颜色
-	 */
-	int SPIDER_SKIN_COLOR = 0xFFFDE6;
-	/**
-	 * 攻击范围
-	 */
-	float ATTACK_RANGE = 3;
-	/**
-	 * 撤退范围
-	 */
-	float RETREAT_RANGE = 1F;
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+		if (!(entity instanceof SpiderEntity))
+			entity.slowMovement(state, new Vec3d(1 - COBWEB_DECELERATION, 1 - COBWEB_DECELERATION, 1 - COBWEB_DECELERATION));
+		super.onEntityCollision(state, world, pos, entity);
+	}
 }

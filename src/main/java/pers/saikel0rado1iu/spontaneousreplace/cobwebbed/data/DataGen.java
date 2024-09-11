@@ -32,6 +32,7 @@ import pers.saikel0rado1iu.silk.api.generate.DynamicDataEntry;
 import pers.saikel0rado1iu.silk.api.modpass.ModData;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Cobwebbed;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.damage.DamageTypes;
 
 import java.util.Optional;
 import java.util.Set;
@@ -60,6 +61,7 @@ public final class DataGen implements DataGenerator {
 		resource.addProvider(LanguageGenerator.ZhCn::new);
 		resource.addProvider(LanguageGenerator.ZhHk::new);
 		resource.addProvider(LanguageGenerator.ZhTw::new);
+		resource.addProvider(ModelGenerator::new);
 	}
 	
 	/**
@@ -69,7 +71,9 @@ public final class DataGen implements DataGenerator {
 	 */
 	@Override
 	public Set<DynamicDataEntry<?>> dynamicDataEntries() {
-		return ImmutableSet.of();
+		return ImmutableSet.of(
+				DamageTypes.INSTANCE
+		);
 	}
 	
 	/**

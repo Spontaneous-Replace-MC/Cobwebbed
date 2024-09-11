@@ -42,9 +42,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import pers.saikel0rado1iu.silk.api.base.common.util.TickUtil;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.ai.pathing.WeavingWebSpiderNavigation;
-
-import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderData.*;
 
 /**
  * <h2 style="color:FFC800">织网蜘蛛实体</h2>
@@ -54,6 +53,11 @@ import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.Weavin
  * @since 1.0.0
  */
 public class WeavingWebSpiderEntity extends VariantsSpiderEntity {
+	public static final String ID = "weaving_web_spider";
+	public static final float TARGET_RANGE = 4;
+	public static final int WEAVE_TIME = TickUtil.getTick(1.5F);
+	public static final int WEAVE_INTERVAL = TickUtil.getTick(3);
+	public static final int WEAVE_COUNT = 15;
 	public final AnimationState weavingAnimationState = new AnimationState();
 	protected int weaveInterval = 0;
 	protected int weaveWebCount = 0;
@@ -62,7 +66,7 @@ public class WeavingWebSpiderEntity extends VariantsSpiderEntity {
 	
 	public WeavingWebSpiderEntity(EntityType<? extends net.minecraft.entity.mob.SpiderEntity> entityType, World world) {
 		super(entityType, world);
-		setExpPoint(EXP_RADIO);
+		setExpPoint(1.25);
 	}
 	
 	/**
@@ -70,9 +74,9 @@ public class WeavingWebSpiderEntity extends VariantsSpiderEntity {
 	 */
 	public static DefaultAttributeContainer.Builder createSpiderAttributes() {
 		return HostileEntity.createHostileAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, HP)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, DAMAGE)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, SPEED_COEFFICIENT);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 16)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4F);
 	}
 	
 	/**

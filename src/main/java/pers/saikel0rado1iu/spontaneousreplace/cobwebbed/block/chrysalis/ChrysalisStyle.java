@@ -22,66 +22,72 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.chrysalis;
 
-import pers.saikel0rado1iu.silk.api.base.common.util.TickUtil;
+import net.minecraft.util.StringIdentifiable;
 
 /**
- * <h2 style="color:FFC800">织网蜘蛛数据类</h2>
+ * <h2 style="color:FFC800">茧蛹样式</h2>
+ * 蜘蛛茧蛹的不同样式枚举
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
-public interface WeavingWebSpiderData {
+public enum ChrysalisStyle implements StringIdentifiable {
 	/**
-	 * 喷吐毒蛛 ID
+	 * 默认样式
 	 */
-	String ID = "weaving_web_spider";
+	DEFAULT("default"),
 	/**
-	 * 血量
+	 * 大型样式
 	 */
-	float HP = 16;
+	LARGE("large"),
 	/**
-	 * 伤害
+	 * 小型样式
 	 */
-	float DAMAGE = 0;
+	SMALL("small"),
 	/**
-	 * 移速系数 | 移动速度: ~4.20m/s
+	 * 类人样式
 	 */
-	float SPEED_COEFFICIENT = 0.4F;
+	HUMANOID("humanoid"),
 	/**
-	 * 经验倍率
+	 * 村民样式
 	 */
-	float EXP_RADIO = 1.25F;
+	VILLAGER("villager"),
 	/**
-	 * 模型阴影半径
+	 * 小鸡样式
 	 */
-	float MODEL_SHADOW = 0.775F;
+	CHICKEN("chicken"),
 	/**
-	 * 碰撞箱宽
+	 * 苦力怕样式
 	 */
-	float BOX_WEIGHT = 1.4F;
+	CREEPER("creeper"),
 	/**
-	 * 碰撞箱高
+	 * 铁傀儡样式
 	 */
-	float BOX_HEIGHT = 0.9F;
+	IRON_GOLEM("iron_golem"),
 	/**
-	 * 蜘蛛皮肤颜色
+	 * 占位模型的样式
 	 */
-	int SPIDER_SKIN_COLOR = 0x404040;
+	PLACEHOLDER("placeholder"),
 	/**
-	 * 与目标范围
+	 * 短占位模型的样式
 	 */
-	float TARGET_RANGE = 4;
-	/**
-	 * 织网时长
-	 */
-	int WEAVE_TIME = TickUtil.getTick(1.5F);
-	/**
-	 * 织网间隔
-	 */
-	int WEAVE_INTERVAL = TickUtil.getTick(3);
-	/**
-	 * 织网个数
-	 */
-	int WEAVE_COUNT = 15;
+	PLACEHOLDER_SHORT("placeholder_short");
+	
+	private final String style;
+	
+	ChrysalisStyle(String name) {
+		style = name;
+	}
+	
+	@Override
+	public String toString() {
+		return style;
+	}
+	
+	@Override
+	public String asString() {
+		return style;
+	}
 }

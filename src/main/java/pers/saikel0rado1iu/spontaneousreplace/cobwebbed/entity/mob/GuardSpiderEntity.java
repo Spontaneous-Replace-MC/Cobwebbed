@@ -38,12 +38,14 @@ import net.minecraft.world.World;
  * @since 1.0.0
  */
 public class GuardSpiderEntity extends VariantsSpiderEntity {
+	public static final String ID = "guard_spider";
+	
 	/**
 	 * 构建实体
 	 */
 	public GuardSpiderEntity(EntityType<? extends net.minecraft.entity.mob.SpiderEntity> entityType, World world) {
 		super(entityType, world);
-		setExpPoint(GuardSpiderData.EXP_RADIO);
+		setExpPoint(2F);
 	}
 	
 	/**
@@ -51,11 +53,11 @@ public class GuardSpiderEntity extends VariantsSpiderEntity {
 	 */
 	public static DefaultAttributeContainer.Builder createSpiderAttributes() {
 		return HostileEntity.createHostileAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, GuardSpiderData.HP)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, GuardSpiderData.DAMAGE)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, GuardSpiderData.SPEED_COEFFICIENT)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, GuardSpiderData.KNOCK_BACK_RESISTANCE)
-				.add(EntityAttributes.GENERIC_ARMOR, GuardSpiderData.ARMOR);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.3)
+				.add(EntityAttributes.GENERIC_ARMOR, 4);
 	}
 	
 	/**

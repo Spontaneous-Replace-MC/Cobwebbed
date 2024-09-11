@@ -26,27 +26,27 @@ package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature.SpiderLarvaEyes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.EntityModelLayers;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.SpiderLarvaEntityModel;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.SpiderLarvaData;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.SpiderLarvaEntity;
 
-import static pers.saikel0rado1iu.sr.data.client.ModelLayers.SPIDER_LARVA_LAYER;
-
 /**
- * <h2 style="color:FFC800">幼蛛渲染类</h2>
+ * <h2 style="color:FFC800">幼蛛实体渲染器</h2>
+ * 幼蛛的实体渲染器
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class SpiderLarvaEntityRenderer<T extends SpiderLarvaEntity> extends VariantsSpiderEntityRenderer<T> {
+	public static final float MODEL_SCALE = 0.5F;
+	
 	/**
 	 * 注册渲染器
 	 *
 	 * @param context 实体渲染器工厂
 	 */
 	public SpiderLarvaEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new SpiderLarvaEntityModel<>(context.getPart(SPIDER_LARVA_LAYER)), SpiderLarvaData.MODEL_SHADOW);
-		addFeature(new SpiderLarvaEyes<>(this));
+		super(context, new SpiderLarvaEntityModel<>(context.getPart(EntityModelLayers.SPIDER_LARVA_LAYER)), 0.35F);
 	}
 	
 	/**
@@ -54,11 +54,11 @@ public class SpiderLarvaEntityRenderer<T extends SpiderLarvaEntity> extends Vari
 	 */
 	@Override
 	protected void scale(T entity, MatrixStack matrices, float amount) {
-		matrices.scale(SpiderLarvaData.MODEL_SCALE, SpiderLarvaData.MODEL_SCALE, SpiderLarvaData.MODEL_SCALE);
+		matrices.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
 	}
 	
 	@Override
 	public String getTextureId() {
-		return SpiderLarvaData.ID;
+		return SpiderLarvaEntity.ID;
 	}
 }

@@ -22,60 +22,28 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.entity;
+
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import pers.saikel0rado1iu.silk.api.spinningjenny.EntityTypeRegistry;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.*;
+
+import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes.*;
+
 
 /**
- * <h2 style="color:FFC800">蜘蛛卫兵数据类</h2>
+ * <h2 style="color:FFC800">实体类型集</h2>
+ * 蛛丝网迹的实体类型的客户端注册
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
-public interface GuardSpiderData {
-	/**
-	 * 蜘蛛卫兵 ID
-	 */
-	String ID = "guard_spider";
-	/**
-	 * 血量
-	 */
-	float HP = 20;
-	/**
-	 * 伤害
-	 */
-	float DAMAGE = 4;
-	/**
-	 * 移速系数 | 移动速度: ~2.25m/s
-	 */
-	float SPEED_COEFFICIENT = 0.3F;
-	/**
-	 * 击退抗性
-	 */
-	float KNOCK_BACK_RESISTANCE = 0.3F;
-	/**
-	 * 护甲值
-	 */
-	float ARMOR = 4;
-	/**
-	 * 经验倍率
-	 */
-	float EXP_RADIO = 2;
-	/**
-	 * 模型阴影半径
-	 */
-	float MODEL_SHADOW = 0.875F;
-	/**
-	 * 模型缩放
-	 */
-	float MODEL_SCALE = 1.2F;
-	/**
-	 * 碰撞箱宽
-	 */
-	float BOX_WEIGHT = 1.75F;
-	/**
-	 * 碰撞箱高
-	 */
-	float BOX_HEIGHT = 1;
-	/**
-	 * 蜘蛛皮肤颜色
-	 */
-	int SPIDER_SKIN_COLOR = 0x4D4600;
+public abstract class EntityTypes implements EntityTypeRegistry {
+	static {
+		EntityTypeRegistry.registrar(() -> EntityRendererRegistry.register(TOXIN, ToxinEntityRenderer::new)).register(TOXIN);
+		EntityTypeRegistry.registrar(() -> EntityRendererRegistry.register(SPIDER_LARVA, SpiderLarvaEntityRenderer::new)).register(SPIDER_LARVA);
+		EntityTypeRegistry.registrar(() -> EntityRendererRegistry.register(GUARD_SPIDER, GuardSpiderEntityRenderer::new)).register(GUARD_SPIDER);
+		EntityTypeRegistry.registrar(() -> EntityRendererRegistry.register(SPRAY_POISON_SPIDER, SprayPoisonSpiderEntityRenderer::new)).register(SPRAY_POISON_SPIDER);
+		EntityTypeRegistry.registrar(() -> EntityRendererRegistry.register(WEAVING_WEB_SPIDER, WeavingWebSpiderEntityRenderer::new)).register(WEAVING_WEB_SPIDER);
+	}
 }

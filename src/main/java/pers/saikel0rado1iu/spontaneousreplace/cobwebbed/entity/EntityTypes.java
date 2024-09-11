@@ -50,22 +50,22 @@ public interface EntityTypes extends EntityTypeRegistry {
 					.dimensions(EntityDimensions.fixed(EntityUtil.PROJECTILE_BOX, EntityUtil.PROJECTILE_BOX)).trackRangeBlocks(EntityUtil.PROJECTILE_RANGE).trackedUpdateRate(EntityUtil.PROJECTILE_UPDATE_RATE).build())
 			.register("toxin_projectile");
 	EntityType<SpiderLarvaEntity> SPIDER_LARVA = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(SpiderLarvaEntity::new)
-					.dimensions(EntityDimensions.fixed(SpiderLarvaData.BOX_WEIGHT, SpiderLarvaData.BOX_HEIGHT)).build())
+					.dimensions(EntityDimensions.fixed(0.75F, 0.5F)).build())
 			.other(spiderLarvaEntityEntityType -> FabricDefaultAttributeRegistry.register(spiderLarvaEntityEntityType, SpiderLarvaEntity.createSpiderAttributes()))
-			.register(SpiderLarvaData.ID);
+			.register(SpiderLarvaEntity.ID);
 	EntityType<GuardSpiderEntity> GUARD_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(GuardSpiderEntity::new)
 					.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(GuardSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build())
-					.dimensions(EntityDimensions.fixed(GuardSpiderData.BOX_WEIGHT, GuardSpiderData.BOX_HEIGHT)).build())
+					.dimensions(EntityDimensions.fixed(1.75F, 1)).build())
 			.other(guardSpiderEntityEntityType -> FabricDefaultAttributeRegistry.register(guardSpiderEntityEntityType, GuardSpiderEntity.createSpiderAttributes()))
-			.register(GuardSpiderData.ID);
+			.register(GuardSpiderEntity.ID);
 	EntityType<SprayPoisonSpiderEntity> SPRAY_POISON_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(SprayPoisonSpiderEntity::new)
 					.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(SprayPoisonSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build())
-					.dimensions(EntityDimensions.fixed(SprayPoisonSpiderData.BOX_WEIGHT, SprayPoisonSpiderData.BOX_HEIGHT)).build())
+					.dimensions(EntityDimensions.fixed(1.5F, 0.85F)).build())
 			.other(sprayPoisonSpiderEntityEntityType -> FabricDefaultAttributeRegistry.register(sprayPoisonSpiderEntityEntityType, SprayPoisonSpiderEntity.createSpiderAttributes()))
-			.register(SprayPoisonSpiderData.ID);
+			.register(SprayPoisonSpiderEntity.ID);
 	EntityType<WeavingWebSpiderEntity> WEAVING_WEB_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(WeavingWebSpiderEntity::new)
 					.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(WeavingWebSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build())
-					.dimensions(EntityDimensions.fixed(WeavingWebSpiderData.BOX_WEIGHT, WeavingWebSpiderData.BOX_HEIGHT)).build())
+					.dimensions(EntityDimensions.fixed(1.4F, 0.9F)).build())
 			.other(weavingWebSpiderEntityEntityType -> FabricDefaultAttributeRegistry.register(weavingWebSpiderEntityEntityType, WeavingWebSpiderEntity.createSpiderAttributes()))
-			.register(WeavingWebSpiderData.ID);
+			.register(WeavingWebSpiderEntity.ID);
 }

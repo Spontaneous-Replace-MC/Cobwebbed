@@ -30,7 +30,11 @@ import pers.saikel0rado1iu.silk.api.modpass.ModMain;
 import pers.saikel0rado1iu.silk.api.modpass.ModPass;
 import pers.saikel0rado1iu.silk.api.modpass.registry.MainRegistrationProvider;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.entity.BlockEntityTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect.StatusEffects;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.particle.ParticleTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
 
@@ -61,8 +65,12 @@ public final class Main implements ModMain {
 	@Override
 	public Set<Class<? extends MainRegistrationProvider<?>>> registry() {
 		return ImmutableSet.of(
+				Items.class,
+				Blocks.class,
+				BlockEntityTypes.class,
 				EntityTypes.class,
 				ParticleTypes.class,
+				StatusEffects.class,
 				SoundEvents.class
 		);
 	}

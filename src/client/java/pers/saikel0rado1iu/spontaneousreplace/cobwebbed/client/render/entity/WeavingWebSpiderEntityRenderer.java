@@ -25,30 +25,27 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature.WeavingWebSpiderEyes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.EntityModelLayers;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.WeavingWebSpiderEntityModel;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderData;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderEntity;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderRenderer;
-
-import static pers.saikel0rado1iu.sr.data.client.ModelLayers.WEAVING_WEB_SPIDER_LAYER;
 
 /**
- * <h2 style="color:FFC800">织网蜘蛛渲染类</h2>
+ * <h2 style="color:FFC800">织网蜘蛛实体渲染器</h2>
+ * 织网蜘蛛的实体渲染器
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class WeavingWebSpiderEntityRenderer<T extends WeavingWebSpiderEntity> extends VariantsSpiderEntityRenderer<T> {
 	/**
 	 * 构建渲染
 	 */
 	public WeavingWebSpiderEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new WeavingWebSpiderEntityModel<>(context.getPart(WEAVING_WEB_SPIDER_LAYER)), WeavingWebSpiderData.MODEL_SHADOW);
-		this.addFeature(new WeavingWebSpiderEyes<>(this));
+		super(context, new WeavingWebSpiderEntityModel<>(context.getPart(EntityModelLayers.WEAVING_WEB_SPIDER_LAYER)), 0.775F);
 	}
 	
 	@Override
 	public String getTextureId() {
-		return WeavingWebSpiderData.ID;
+		return WeavingWebSpiderEntity.ID;
 	}
 }

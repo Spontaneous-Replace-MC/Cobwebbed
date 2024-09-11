@@ -36,9 +36,6 @@ import org.jetbrains.annotations.Nullable;
 import pers.saikel0rado1iu.silk.api.base.common.util.MathUtil;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderEntity;
 
-import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderData.TARGET_RANGE;
-import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.WeavingWebSpiderData.WEAVE_TIME;
-
 /**
  * <h2 style="color:FFC800">织网蜘蛛寻路类</h2>
  * 织网蜘蛛的寻路逻辑控制
@@ -98,12 +95,12 @@ public class WeavingWebSpiderNavigation extends MobNavigation {
 	@Override
 	public void tick() {
 		// 如果没有播放筑网动画
-		if (!(mob instanceof WeavingWebSpiderEntity spider && spider.weaveAnimeTime() >= WEAVE_TIME)) {
+		if (!(mob instanceof WeavingWebSpiderEntity spider && spider.weaveAnimeTime() >= WeavingWebSpiderEntity.WEAVE_TIME)) {
 			super.tick();
 			return;
 		}
 		boolean flag = false;
-		if (mob.getTarget() != null) flag = (mob.distanceTo(mob.getTarget()) > TARGET_RANGE);
+		if (mob.getTarget() != null) flag = (mob.distanceTo(mob.getTarget()) > WeavingWebSpiderEntity.TARGET_RANGE);
 		if (MathUtil.xor(flag, mob.getTarget() == null)) {
 			if (isIdle() && targetPos != null) {
 				if (!targetPos.isWithinDistance(entity.getPos(), entity.getWidth()) && (!(entity.getY() > (double) targetPos.getY()) || !BlockPos.ofFloored(targetPos.getX(), entity.getY(), targetPos.getZ()).isWithinDistance(entity.getPos(), entity.getWidth())))

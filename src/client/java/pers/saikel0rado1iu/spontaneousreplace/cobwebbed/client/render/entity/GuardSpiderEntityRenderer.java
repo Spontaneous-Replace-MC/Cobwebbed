@@ -25,27 +25,26 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.SpiderEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature.GuardSpiderEyes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.EntityModelLayers;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.GuardSpiderEntityModel;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.GuardSpiderData;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.GuardSpiderEntity;
 
-import static pers.saikel0rado1iu.sr.data.client.ModelLayers.GUARD_SPIDER_LAYER;
-
 /**
- * <h2 style="color:FFC800">蜘蛛卫兵渲染类</h2>
+ * <h2 style="color:FFC800">蜘蛛卫兵实体渲染器</h2>
+ * 蜘蛛卫兵的实体渲染器
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class GuardSpiderEntityRenderer<T extends GuardSpiderEntity> extends VariantsSpiderEntityRenderer<T> {
+	public static final float MODEL_SCALE = 1.2F;
+	
 	/**
 	 * 构建渲染类
 	 */
 	public GuardSpiderEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new GuardSpiderEntityModel<>(context.getPart(GUARD_SPIDER_LAYER)), GuardSpiderData.MODEL_SHADOW);
-		addFeature(new GuardSpiderEyes<>(this));
+		super(context, new GuardSpiderEntityModel<>(context.getPart(EntityModelLayers.GUARD_SPIDER_LAYER)), 0.875F);
 	}
 	
 	/**
@@ -53,11 +52,11 @@ public class GuardSpiderEntityRenderer<T extends GuardSpiderEntity> extends Vari
 	 */
 	@Override
 	protected void scale(T entity, MatrixStack matrices, float amount) {
-		matrices.scale(GuardSpiderData.MODEL_SCALE, GuardSpiderData.MODEL_SCALE, GuardSpiderData.MODEL_SCALE);
+		matrices.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
 	}
 	
 	@Override
 	public String getTextureId() {
-		return GuardSpiderData.ID;
+		return GuardSpiderEntity.ID;
 	}
 }

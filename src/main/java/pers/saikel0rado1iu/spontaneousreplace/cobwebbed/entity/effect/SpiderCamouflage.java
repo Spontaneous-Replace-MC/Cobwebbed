@@ -22,20 +22,19 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.feature;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect;
 
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderEntity;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderEyes;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderModel;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
 
 /**
- * <h2 style="color:FFC800">蜘蛛卫兵眼部发光类</h2>
+ * <h2 style="color:FFC800">蜘蛛伪装</h2>
+ * 蜘蛛伪装状态效果，可以使玩家不会触发蜘蛛卵茧
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
  */
-public class GuardSpiderEyes<T extends SpiderEntity, M extends SpiderModel<T>> extends SpiderEyes<T, M> {
-	public GuardSpiderEyes(FeatureRendererContext<T, M> featureRendererContext) {
-		super(featureRendererContext);
+public class SpiderCamouflage extends StatusEffect {
+	public SpiderCamouflage() {
+		super(StatusEffectCategory.NEUTRAL, 0x000000);
 	}
 }

@@ -33,6 +33,8 @@ import pers.saikel0rado1iu.silk.api.modpass.ModPass;
 import pers.saikel0rado1iu.silk.api.modpass.registry.ClientRegistrationProvider;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Cobwebbed;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.entity.EntityTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.render.entity.model.EntityModelLayers;
 import pers.saikel0rado1iu.spontaneousreplace.terriforest.Terriforest;
 
 import java.util.Set;
@@ -75,7 +77,10 @@ public final class Client implements ModClient {
 	 */
 	@Override
 	public Set<Class<? extends ClientRegistrationProvider<?>>> registry() {
-		return ImmutableSet.of();
+		return ImmutableSet.of(
+				EntityTypes.class,
+				EntityModelLayers.class
+		);
 	}
 	
 	/**
