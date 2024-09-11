@@ -25,10 +25,13 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.*;
+import pers.saikel0rado1iu.silk.api.base.common.util.PlayerUtil;
+import pers.saikel0rado1iu.silk.api.base.common.util.TickUtil;
 import pers.saikel0rado1iu.silk.api.spinningjenny.ItemRegistry;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob.*;
 import pers.saikel0rado1iu.spontaneousreplace.item.ItemGroups;
@@ -41,11 +44,28 @@ import pers.saikel0rado1iu.spontaneousreplace.item.ItemGroups;
  * @since 1.0.0
  */
 public interface Items extends ItemRegistry {
+	Item SPIDER_LEG = ItemRegistry.registrar(() -> new Item(new FabricItemSettings().food(new FoodComponent.Builder()
+					.meat()
+					.hunger(4)
+					.statusEffect(new StatusEffectInstance(StatusEffects.POISON, TickUtil.getTick(10), 1), 1).build())))
+			.group(ItemGroups.FOOD_AND_DRINK, ItemGroups.INGREDIENTS).register("spider_leg");
 	Item SPIDER_LEATHER = ItemRegistry.registrar(() -> new Item(new FabricItemSettings())).group(ItemGroups.INGREDIENTS).register("spider_leather");
-	ArmorItem SPIDER_LEATHER_TUNIC = ItemRegistry.registrar(() -> ArmorMaterials.SPIDER_LEATHER.createChestplate(new FabricItemSettings(), ArmorMaterials.spiderLeatherProperty())).group(ItemGroups.COMBAT).register("spider_leather_tunic");
-	ArmorItem SPIDER_LEATHER_CAP = ItemRegistry.registrar(() -> ArmorMaterials.SPIDER_LEATHER.createHelmet(new FabricItemSettings(), ArmorMaterials.spiderLeatherProperty())).group(ItemGroups.COMBAT).register("spider_leather_cap");
+	Item SPIDER_FANG = ItemRegistry.registrar(() -> new Item(new FabricItemSettings())).group(ItemGroups.INGREDIENTS).register("spider_fang");
+	Item DEPOISON_SPIDER_LEG = ItemRegistry.registrar(() -> new Item(new FabricItemSettings().food(new FoodComponent.Builder()
+					.meat()
+					.hunger(5)
+					.saturationModifier(PlayerUtil.getSaturationRatio(3))
+					.statusEffect(new StatusEffectInstance(StatusEffects.POISON, TickUtil.getTick(5), 0), 0.25F).build())))
+			.group(ItemGroups.FOOD_AND_DRINK, ItemGroups.INGREDIENTS).register("depoison_spider_leg");
 	SpawnEggItem SPIDER_LARVA_SPAWN_EGG = ItemRegistry.registrar(() -> new SpawnEggItem(EntityTypes.SPIDER_LARVA, 0xFFFDE6, VariantsSpiderEntity.SPIDER_EYES_COLOR, new FabricItemSettings())).group(ItemGroups.SPAWN_EGGS).register(SpiderLarvaEntity.ID);
+	ArmorItem SPIDER_LEATHER_TUNIC = ItemRegistry.registrar(() -> ArmorMaterials.SPIDER_LEATHER.createChestplate(new FabricItemSettings(), ArmorMaterials.spiderLeatherProperty())).group(ItemGroups.COMBAT).register("spider_leather_tunic");
 	SpawnEggItem GUARD_SPIDER_SPAWN_EGG = ItemRegistry.registrar(() -> new SpawnEggItem(EntityTypes.GUARD_SPIDER, 0x4D4600, VariantsSpiderEntity.SPIDER_EYES_COLOR, new FabricItemSettings())).group(ItemGroups.SPAWN_EGGS).register(GuardSpiderEntity.ID);
+	ArmorItem SPIDER_LEATHER_CAP = ItemRegistry.registrar(() -> ArmorMaterials.SPIDER_LEATHER.createHelmet(new FabricItemSettings(), ArmorMaterials.spiderLeatherProperty())).group(ItemGroups.COMBAT).register("spider_leather_cap");
 	SpawnEggItem SPRAY_POISON_SPIDER_SPAWN_EGG = ItemRegistry.registrar(() -> new SpawnEggItem(EntityTypes.SPRAY_POISON_SPIDER, 0x0F5000, VariantsSpiderEntity.SPIDER_EYES_COLOR, new FabricItemSettings())).group(ItemGroups.SPAWN_EGGS).register(SprayPoisonSpiderEntity.ID);
 	SpawnEggItem WEAVING_WEB_SPIDER_SPAWN_EGG = ItemRegistry.registrar(() -> new SpawnEggItem(EntityTypes.WEAVING_WEB_SPIDER, 0x404040, VariantsSpiderEntity.SPIDER_EYES_COLOR, new FabricItemSettings())).group(ItemGroups.SPAWN_EGGS).register(WeavingWebSpiderEntity.ID);
+	BlockItem GOSSAMER_CARPET = ItemRegistry.registrar(() -> new BlockItem(Blocks.GOSSAMER_CARPET, new FabricItemSettings())).group(ItemGroups.NATURAL).register("gossamer_carpet");
+	BlockItem GOSSAMERY_LEAVES = ItemRegistry.registrar(() -> new BlockItem(Blocks.GOSSAMERY_LEAVES, new FabricItemSettings())).group(ItemGroups.NATURAL).register("gossamery_leaves");
+	BlockItem STICKY_COMPACT_COBWEB = ItemRegistry.registrar(() -> new BlockItem(Blocks.STICKY_COMPACT_COBWEB, new FabricItemSettings())).group(ItemGroups.NATURAL).register("sticky_compact_cobweb");
+	BlockItem SPIDER_CHRYSALIS = ItemRegistry.registrar(() -> new BlockItem(Blocks.SPIDER_CHRYSALIS, new FabricItemSettings())).group(ItemGroups.NATURAL).register("spider_chrysalis");
+	BlockItem SPIDER_EGG_COCOON = ItemRegistry.registrar(() -> new BlockItem(Blocks.SPIDER_EGG_COCOON, new FabricItemSettings())).group(ItemGroups.NATURAL).register("spider_egg_cocoon");
 }

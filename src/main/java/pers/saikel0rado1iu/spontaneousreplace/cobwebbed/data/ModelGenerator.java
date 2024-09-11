@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Models;
 import pers.saikel0rado1iu.silk.api.generate.data.ModelGenUtil;
 import pers.saikel0rado1iu.silk.api.generate.data.client.ExtendedBlockStateModelGenerator;
 import pers.saikel0rado1iu.silk.api.generate.data.client.ExtendedItemModelGenerator;
@@ -53,9 +54,17 @@ final class ModelGenerator extends FabricModelProvider {
 	@Override
 	public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 		ExtendedItemModelGenerator generator = new ExtendedItemModelGenerator(itemModelGenerator);
+		generator.register(Items.SPIDER_LEG, Models.GENERATED);
+		generator.register(Items.SPIDER_LEATHER, Models.GENERATED);
+		generator.register(Items.SPIDER_FANG, Models.GENERATED);
+		generator.register(Items.DEPOISON_SPIDER_LEG, Models.GENERATED);
+		generator.register(Items.SPIDER_LEATHER_CAP, Models.GENERATED);
+		generator.register(Items.SPIDER_LEATHER_TUNIC, Models.GENERATED);
 		generator.register(Items.SPIDER_LARVA_SPAWN_EGG, ModelGenUtil.TEMPLATE_SPAWN_EGG);
 		generator.register(Items.GUARD_SPIDER_SPAWN_EGG, ModelGenUtil.TEMPLATE_SPAWN_EGG);
 		generator.register(Items.SPRAY_POISON_SPIDER_SPAWN_EGG, ModelGenUtil.TEMPLATE_SPAWN_EGG);
 		generator.register(Items.WEAVING_WEB_SPIDER_SPAWN_EGG, ModelGenUtil.TEMPLATE_SPAWN_EGG);
+		generator.register(Items.SPIDER_CHRYSALIS, Models.GENERATED);
+		generator.register(Items.SPIDER_EGG_COCOON, Models.GENERATED);
 	}
 }

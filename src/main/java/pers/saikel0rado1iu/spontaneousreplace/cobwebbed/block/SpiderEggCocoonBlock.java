@@ -25,10 +25,8 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -55,6 +53,8 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public class SpiderEggCocoonBlock extends BlockWithEntity {
+	public static final float STRENGTH = SpiderChrysalisBlock.STRENGTH;
+	public static final AbstractBlock.Settings SETTINGS = SpiderChrysalisBlock.SETTINGS;
 	public static final MapCodec<SpiderEggCocoonBlock> CODEC = createCodec(SpiderEggCocoonBlock::new);
 	
 	/**

@@ -24,9 +24,8 @@
 
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Waterloggable;
+import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.fluid.FluidState;
@@ -50,10 +49,15 @@ import org.jetbrains.annotations.Nullable;
  */
 @SuppressWarnings("deprecation")
 public class StickyCompactCobwebBlock extends Block implements Waterloggable {
-	float DECELERATION_RADIO = 3;
-	float COBWEB_DROP = 0.05F;
-	float STICKY_COMPACT_COBWEB_DECELERATION = GossamerCarpetBlock.COBWEB_DECELERATION / DECELERATION_RADIO;
-	float STICKY_COMPACT_COBWEB_DROP = COBWEB_DROP / DECELERATION_RADIO;
+	public static final int BURN_CHANCE = 5;
+	public static final int SPREAD_CHANCE = 20;
+	public static final float STRENGTH_RADIO = 10;
+	public static final float DECELERATION_RADIO = 3;
+	public static final float COBWEB_DROP = 0.05F;
+	public static final float STRENGTH = SpiderChrysalisBlock.STRENGTH * STRENGTH_RADIO;
+	public static final float DECELERATION = GossamerCarpetBlock.DECELERATION / DECELERATION_RADIO;
+	public static final float DROP = COBWEB_DROP / DECELERATION_RADIO;
+	public static final AbstractBlock.Settings SETTINGS = AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).burnable().nonOpaque().pistonBehavior(PistonBehavior.BLOCK).noCollision().requiresTool().strength(StickyCompactCobwebBlock.STRENGTH);
 	
 	public StickyCompactCobwebBlock(Settings settings) {
 		super(settings);
@@ -87,7 +91,6 @@ public class StickyCompactCobwebBlock extends Block implements Waterloggable {
 	 */
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (!(entity instanceof SpiderEntity))
-			entity.slowMovement(state, new Vec3d(STICKY_COMPACT_COBWEB_DECELERATION, STICKY_COMPACT_COBWEB_DROP, STICKY_COMPACT_COBWEB_DECELERATION));
+		if (!(entity instanceof SpiderEntity)) entity.slowMovement(state, new Vec3d(DECELERATION, DROP, DECELERATION));
 	}
 }

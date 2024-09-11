@@ -27,6 +27,7 @@ package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -56,10 +57,9 @@ import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.state.property.Pr
  * @since 1.0.0
  */
 public class SpiderChrysalisBlock extends HorizontalFacingBlock {
+	public static final float STRENGTH = 4;
+	public static final AbstractBlock.Settings SETTINGS = AbstractBlock.Settings.create().mapColor(MapColor.WHITE_GRAY).pistonBehavior(PistonBehavior.BLOCK);
 	public static final MapCodec<SpiderChrysalisBlock> CODEC = createCodec(SpiderChrysalisBlock::new);
-	/**
-	 * 蜘蛛茧蛹方块样式
-	 */
 	protected ChrysalisStyle style = ChrysalisStyle.PLACEHOLDER;
 	
 	/**

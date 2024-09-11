@@ -36,7 +36,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.GossamerCarpetBlock.COBWEB_DECELERATION;
+import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.GossamerCarpetBlock.DECELERATION;
 
 /**
  * <h2 style="color:FFC800">覆丝树叶方块</h2>
@@ -46,6 +46,7 @@ import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.GossamerCar
  * @since 1.0.0
  */
 public class GossameryLeavesBlock extends LeavesBlock {
+	public static final float DECELERATION = GossamerCarpetBlock.DECELERATION;
 	public static final VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 15.0, 15.0);
 	
 	public GossameryLeavesBlock(Settings settings) {
@@ -65,7 +66,7 @@ public class GossameryLeavesBlock extends LeavesBlock {
 	@SuppressWarnings("deprecation")
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (!(entity instanceof SpiderEntity))
-			entity.slowMovement(state, new Vec3d(1 - COBWEB_DECELERATION, 1 - COBWEB_DECELERATION, 1 - COBWEB_DECELERATION));
+			entity.slowMovement(state, new Vec3d(1 - DECELERATION, 1 - DECELERATION, 1 - DECELERATION));
 		
 		super.onEntityCollision(state, world, pos, entity);
 	}

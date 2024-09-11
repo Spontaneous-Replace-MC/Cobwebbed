@@ -40,7 +40,7 @@ import net.minecraft.world.World;
  * @since 1.0.0
  */
 public class GossamerCarpetBlock extends CarpetBlock {
-	public static final float COBWEB_DECELERATION = 0.25F;
+	public static final float DECELERATION = 0.25F;
 	
 	public GossamerCarpetBlock(Settings settings) {
 		super(settings);
@@ -52,8 +52,7 @@ public class GossamerCarpetBlock extends CarpetBlock {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (!(entity instanceof SpiderEntity))
-			entity.slowMovement(state, new Vec3d(1 - COBWEB_DECELERATION, 1 - COBWEB_DECELERATION, 1 - COBWEB_DECELERATION));
+		if (!(entity instanceof SpiderEntity)) entity.slowMovement(state, new Vec3d(1 - DECELERATION, 1 - DECELERATION, 1 - DECELERATION));
 		super.onEntityCollision(state, world, pos, entity);
 	}
 }

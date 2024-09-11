@@ -26,9 +26,7 @@ package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.piston.PistonBehavior;
 import pers.saikel0rado1iu.silk.api.spinningjenny.BlockRegistry;
 
 import static net.minecraft.block.Blocks.*;
@@ -41,18 +39,11 @@ import static net.minecraft.block.Blocks.*;
  * @since 1.0.0
  */
 public interface Blocks extends BlockRegistry {
-	float COBWEB_STRENGTH = 4;
-	float STRENGTH_RADIO = 10;
-	float STICKY_COMPACT_COBWEB_STRENGTH = COBWEB_STRENGTH * STRENGTH_RADIO;
-	int STICKY_COMPACT_COBWEB_BURN_CHANCE = 5;
-	int STICKY_COMPACT_COBWEB_SPREAD_CHANCE = 20;
-	AbstractBlock.Settings COBWEB = AbstractBlock.Settings.create().mapColor(MapColor.WHITE_GRAY).pistonBehavior(PistonBehavior.BLOCK);
 	CobwebbySoilBlock COBWEBBY_SOIL = BlockRegistry.registrar(() -> new CobwebbySoilBlock(FabricBlockSettings.copyOf(MYCELIUM).mapColor(MapColor.WHITE))).register("cobwebby_soil");
 	GossamerCarpetBlock GOSSAMER_CARPET = BlockRegistry.registrar(() -> new GossamerCarpetBlock(FabricBlockSettings.copyOf(MOSS_CARPET).noCollision().nonOpaque().mapColor(MapColor.WHITE_GRAY))).register("gossamer_carpet");
 	GossameryLeavesBlock GOSSAMERY_LEAVES = BlockRegistry.registrar(() -> new GossameryLeavesBlock(FabricBlockSettings.copyOf(OAK_LEAVES).mapColor(MapColor.WHITE_GRAY))).register("gossamery_leaves");
-	StickyCompactCobwebBlock STICKY_COMPACT_COBWEB = BlockRegistry.registrar(() -> new StickyCompactCobwebBlock(FabricBlockSettings.copyOf(
-					AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).burnable().nonOpaque().pistonBehavior(PistonBehavior.BLOCK)).noCollision().requiresTool().strength(STICKY_COMPACT_COBWEB_STRENGTH)))
-			.other(stickyCompactCobweb -> FlammableBlockRegistry.getDefaultInstance().add(stickyCompactCobweb, STICKY_COMPACT_COBWEB_BURN_CHANCE, STICKY_COMPACT_COBWEB_SPREAD_CHANCE)).register("sticky_compact_cobweb");
-	SpiderChrysalisBlock SPIDER_CHRYSALIS = BlockRegistry.registrar(() -> new SpiderChrysalisBlock(FabricBlockSettings.copyOf(COBWEB).requiresTool().nonOpaque().strength(COBWEB_STRENGTH))).register("spider_chrysalis");
-	SpiderEggCocoonBlock SPIDER_EGG_COCOON = BlockRegistry.registrar(() -> new SpiderEggCocoonBlock(FabricBlockSettings.copyOf(COBWEB).requiresTool().nonOpaque().strength(COBWEB_STRENGTH))).register("spider_egg_cocoon");
+	StickyCompactCobwebBlock STICKY_COMPACT_COBWEB = BlockRegistry.registrar(() -> new StickyCompactCobwebBlock(FabricBlockSettings.copyOf(StickyCompactCobwebBlock.SETTINGS)))
+			.other(stickyCompactCobweb -> FlammableBlockRegistry.getDefaultInstance().add(stickyCompactCobweb, StickyCompactCobwebBlock.BURN_CHANCE, StickyCompactCobwebBlock.SPREAD_CHANCE)).register("sticky_compact_cobweb");
+	SpiderChrysalisBlock SPIDER_CHRYSALIS = BlockRegistry.registrar(() -> new SpiderChrysalisBlock(FabricBlockSettings.copyOf(SpiderChrysalisBlock.SETTINGS).requiresTool().nonOpaque().strength(SpiderChrysalisBlock.STRENGTH))).register("spider_chrysalis");
+	SpiderEggCocoonBlock SPIDER_EGG_COCOON = BlockRegistry.registrar(() -> new SpiderEggCocoonBlock(FabricBlockSettings.copyOf(SpiderEggCocoonBlock.SETTINGS).requiresTool().nonOpaque().strength(SpiderEggCocoonBlock.STRENGTH))).register("spider_egg_cocoon");
 }
