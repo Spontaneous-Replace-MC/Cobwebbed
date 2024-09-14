@@ -32,6 +32,8 @@ import pers.saikel0rado1iu.silk.api.modpass.ModLaunch;
 import pers.saikel0rado1iu.silk.api.modpass.ModPass;
 import pers.saikel0rado1iu.silk.api.modpass.registry.LaunchRegistrationProvider;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.chunk.ClassicChunkGeneratorModify;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.chunk.SnapshotChunkGeneratorModify;
 import pers.saikel0rado1iu.spontaneousreplace.terriforest.Terriforest;
 
 import java.util.Map;
@@ -52,6 +54,8 @@ public final class Launch implements ModLaunch {
 	 */
 	@Override
 	public void main(ModPass mod) {
+		ClassicChunkGeneratorModify.register();
+		SnapshotChunkGeneratorModify.register();
 		ModifyModResourcePackEvents.MODIFY_GROUP_DATA_PACK_ORDER.register((modPass, orderList) -> {
 			if (!modPass.modData().id().equals(SpontaneousReplace.INSTANCE.modData().id())
 					&& !modPass.modData().id().equals(Terriforest.INSTANCE.modData().id())) {

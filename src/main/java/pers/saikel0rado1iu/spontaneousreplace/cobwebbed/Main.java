@@ -59,8 +59,6 @@ public final class Main implements ModMain {
 	 */
 	@Override
 	public void main(ModPass mod) {
-		ClassicChunkGeneratorModify.register();
-		SnapshotChunkGeneratorModify.register();
 	}
 	
 	/**

@@ -36,6 +36,7 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.damage.DamageType
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.biome.BiomeKeys;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.ConfiguredFeatures;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.PlacedFeatures;
+import pers.saikel0rado1iu.spontaneousreplace.terriforest.world.gen.WorldPresets;
 
 import java.util.Optional;
 import java.util.Set;
