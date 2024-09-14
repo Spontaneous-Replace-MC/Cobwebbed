@@ -55,7 +55,7 @@ public class CobwebbySoilBlock extends SpreadableSoilBlock {
 	}
 	
 	@Override
-	protected Vec3i getSpreadableRange() {
+	public Vec3i getSpreadableRange() {
 		return new Vec3i(3, 3, 3);
 	}
 	

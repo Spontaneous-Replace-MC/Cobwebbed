@@ -33,6 +33,9 @@ import pers.saikel0rado1iu.silk.api.modpass.ModData;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Cobwebbed;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.damage.DamageTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.biome.BiomeKeys;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.ConfiguredFeatures;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.PlacedFeatures;
 
 import java.util.Optional;
 import java.util.Set;
@@ -72,7 +75,10 @@ public final class DataGen implements DataGenerator {
 	@Override
 	public Set<DynamicDataEntry<?>> dynamicDataEntries() {
 		return ImmutableSet.of(
-				DamageTypes.INSTANCE
+				DamageTypes.INSTANCE,
+				ConfiguredFeatures.INSTANCE,
+				PlacedFeatures.INSTANCE,
+				BiomeKeys.INSTANCE
 		);
 	}
 	

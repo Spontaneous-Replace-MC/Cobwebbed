@@ -35,13 +35,14 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import pers.saikel0rado1iu.sr.data.Blocks;
-import pers.saikel0rado1iu.sr.data.word.FoliagePlacerTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
 
 /**
  * <h2 style="color:FFC800">丝化橡木树叶放置器</h2>
+ * 丝化橡木树叶放置器，用于生成带着覆丝树叶的橡木树叶
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class CobwebbyOakFoliagePlacer extends DarkOakFoliagePlacer {
 	public static final Codec<CobwebbyOakFoliagePlacer> CODEC = RecordCodecBuilder.create(instance ->

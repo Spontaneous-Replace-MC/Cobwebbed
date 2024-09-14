@@ -28,28 +28,32 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Position;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import pers.saikel0rado1iu.sr.data.Blocks;
-import pers.saikel0rado1iu.sr.data.Tags;
-import pers.saikel0rado1iu.sr.variant.spider.block.SpiderChrysalis;
-import pers.saikel0rado1iu.sr.variant.spider.mob.general.SpiderData;
+import pers.saikel0rado1iu.silk.api.spinningjenny.tag.BlockTags;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.SpiderChrysalisBlock;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.chrysalis.ChrysalisStyle;
 
 import java.util.function.Supplier;
 
+import static net.minecraft.registry.tag.BlockTags.LEAVES;
+import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.state.property.Properties.CHRYSALIS_STYLE;
+
 /**
- * <h2 style="color:FFC800">简单丝化块地物类型</h2>
+ * <h2 style="color:FFC800">简单丝化块地物</h2>
+ * 简单丝化块地物，用于在世界中生成丝化块及其覆地蛛丝
  *
  * @author <a href="https://github.com/Saikel-Orado-Liu"><img alt="author" src="https://avatars.githubusercontent.com/u/88531138?s=64&v=4"></a>
+ * @since 1.0.0
  */
 public class SimpleCobwebbyBlockFeature extends Feature<SimpleCobwebbyBlockFeature.Config> {
 	public SimpleCobwebbyBlockFeature(Codec<Config> configCodec) {
@@ -64,34 +68,34 @@ public class SimpleCobwebbyBlockFeature extends Feature<SimpleCobwebbyBlockFeatu
 		Config config = context.getConfig();
 		BlockPos downPos = origin.down();
 		
-		if (world.getBlockState(downPos).isIn(Tags.Block.COBWEBBY_BLOCKS)) return false;
+		if (world.getBlockState(downPos).isIn(BlockTags.COBWEB)) return false;
 		BlockState state = config.block.get(random, origin);
-		if (state.getBlock() instanceof SpiderChrysalis) {
+		if (state.getBlock() instanceof SpiderChrysalisBlock) {
 			Supplier<Direction> directionSupplier = () -> switch (random.nextInt() % 4) {
 				case 1 -> Direction.EAST;
 				case 2 -> Direction.SOUTH;
 				case 3 -> Direction.WEST;
 				default -> Direction.NORTH;
 			};
-			state = Blocks.SPIDER_CHRYSALIS.getDefaultState().with(SpiderData.CHRYSALIS_STYLE, SpiderChrysalis.getRandomStyle()).with(Properties.HORIZONTAL_FACING, directionSupplier.get());
-			if (SpiderChrysalis.isDoubleBlock(state.get(SpiderData.CHRYSALIS_STYLE))) {
+			state = Blocks.SPIDER_CHRYSALIS.getDefaultState().with(CHRYSALIS_STYLE, SpiderChrysalisBlock.getRandomStyle()).with(Properties.HORIZONTAL_FACING, directionSupplier.get());
+			if (SpiderChrysalisBlock.isDoubleBlock(state.get(CHRYSALIS_STYLE))) {
 				BlockPos blockPos = origin.up();
 				Direction blockState = Direction.UP;
 				if (state.get(Properties.VERTICAL_DIRECTION) == Direction.DOWN) {
 					blockPos = origin.down();
 					blockState = Direction.DOWN;
 				}
-				if (state.get(SpiderData.CHRYSALIS_STYLE) == SpiderData.ChrysalisStyle.DEFAULT)
-					world.setBlockState(blockPos, state.with(SpiderData.CHRYSALIS_STYLE, SpiderData.ChrysalisStyle.PLACEHOLDER_SHORT).with(Properties.VERTICAL_DIRECTION, blockState), Block.NOTIFY_ALL);
+				if (state.get(CHRYSALIS_STYLE) == ChrysalisStyle.DEFAULT)
+					world.setBlockState(blockPos, state.with(CHRYSALIS_STYLE, ChrysalisStyle.PLACEHOLDER_SHORT).with(Properties.VERTICAL_DIRECTION, blockState), Block.NOTIFY_ALL);
 				else
-					world.setBlockState(blockPos, state.with(SpiderData.CHRYSALIS_STYLE, SpiderData.ChrysalisStyle.PLACEHOLDER).with(Properties.VERTICAL_DIRECTION, blockState), Block.NOTIFY_ALL);
+					world.setBlockState(blockPos, state.with(CHRYSALIS_STYLE, ChrysalisStyle.PLACEHOLDER).with(Properties.VERTICAL_DIRECTION, blockState), Block.NOTIFY_ALL);
 			}
 		}
 		world.setBlockState(origin, state, Block.NOTIFY_ALL);
-		if (world.getBlockState(downPos).isIn(BlockTags.LEAVES))
+		if (world.getBlockState(downPos).isIn(LEAVES))
 			world.setBlockState(downPos, Blocks.GOSSAMERY_LEAVES.getDefaultState(), Block.NOTIFY_ALL);
 		else world.setBlockState(downPos, Blocks.COBWEBBY_SOIL.getDefaultState(), Block.NOTIFY_ALL);
-		Position position = Blocks.COBWEBBY_SOIL.getSpreadableRange();
+		Vec3i position = Blocks.COBWEBBY_SOIL.getSpreadableRange();
 		for (int x = 0; x < position.getX(); x++) {
 			for (int y = 0; y < position.getY(); y++) {
 				for (int z = 0; z < position.getZ(); z++) {

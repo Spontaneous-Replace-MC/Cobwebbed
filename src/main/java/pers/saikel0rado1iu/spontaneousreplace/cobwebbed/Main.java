@@ -37,6 +37,10 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect.StatusEffe
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.particle.ParticleTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.chunk.ClassicChunkGeneratorModify;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.chunk.SnapshotChunkGeneratorModify;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.Features;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.foliage.FoliagePlacerTypes;
 
 import java.util.Set;
 
@@ -55,6 +59,8 @@ public final class Main implements ModMain {
 	 */
 	@Override
 	public void main(ModPass mod) {
+		ClassicChunkGeneratorModify.register();
+		SnapshotChunkGeneratorModify.register();
 	}
 	
 	/**
@@ -71,7 +77,9 @@ public final class Main implements ModMain {
 				EntityTypes.class,
 				ParticleTypes.class,
 				StatusEffects.class,
-				SoundEvents.class
+				SoundEvents.class,
+				FoliagePlacerTypes.class,
+				Features.class
 		);
 	}
 	

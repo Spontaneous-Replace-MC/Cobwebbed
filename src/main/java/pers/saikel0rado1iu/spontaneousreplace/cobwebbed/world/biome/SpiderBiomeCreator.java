@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.biome;
+package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.biome;
 
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.entity.EntityType;
@@ -39,6 +39,8 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.PlacedFeature;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.PlacedFeatures;
 
 /**
  * <h2 style="color:FFC800">蜘蛛生物群系创建器</h2>
@@ -57,16 +59,23 @@ public interface SpiderBiomeCreator {
 		DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
 	}
 	
+	/**
+	 * 创建蜘蛛诡林
+	 *
+	 * @param featureLookup featureLookup
+	 * @param carverLookup  carverLookup
+	 * @return 蜘蛛诡林生物群系
+	 */
 	static Biome createCreepySpiderForest(RegistryEntryLookup<PlacedFeature> featureLookup, RegistryEntryLookup<ConfiguredCarver<?>> carverLookup) {
 		SpawnSettings.Builder builder = new SpawnSettings.Builder();
 		DefaultBiomeFeatures.addCaveMobs(builder);
 		GenerationSettings.LookupBackedBuilder lookupBackedBuilder = new GenerationSettings.LookupBackedBuilder(featureLookup, carverLookup);
-		CreepySpiderForestBiome.addBasicFeatures(lookupBackedBuilder);
-		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, SpiderPlacedFeatures.COBWEB);
-		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, SpiderPlacedFeatures.STICKY_COMPACT_COBWEB);
-		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, SpiderPlacedFeatures.SPIDER_CHRYSALIS);
-		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, SpiderPlacedFeatures.SPIDER_EGG_COCOON);
-		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, SpiderPlacedFeatures.CREEPY_SPIDER_FOREST_VEGETATION);
+		addBasicFeatures(lookupBackedBuilder);
+		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, PlacedFeatures.COBWEB);
+		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, PlacedFeatures.STICKY_COMPACT_COBWEB);
+		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, PlacedFeatures.SPIDER_CHRYSALIS);
+		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, PlacedFeatures.SPIDER_EGG_COCOON);
+		lookupBackedBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, PlacedFeatures.CREEPY_SPIDER_FOREST_VEGETATION);
 		DefaultBiomeFeatures.addDefaultOres(lookupBackedBuilder);
 		DefaultBiomeFeatures.addDefaultDisks(lookupBackedBuilder);
 		DefaultBiomeFeatures.addForestGrass(lookupBackedBuilder);
@@ -77,9 +86,22 @@ public interface SpiderBiomeCreator {
 		builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityTypes.SPRAY_POISON_SPIDER, 1000, 1, 2));
 		builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityTypes.WEAVING_WEB_SPIDER, 1000, 1, 2));
 		MusicSound musicSound = MusicType.createIngameMusic(SoundEvents.MUSIC_OVERWORLD_FOREST);
-		return new Biome.Builder().precipitation(true).temperature(0.7f).downfall(0.8f)
-				.effects(new BiomeEffects.Builder().waterColor(0x617B64).waterFogColor(0x232317).fogColor(0x666F80).skyColor(0x3D424D).foliageColor(0x384D2E).grassColor(0x204010)
-						.moodSound(BiomeMoodSound.CAVE).music(musicSound).build())
-				.spawnSettings(builder.build()).generationSettings(lookupBackedBuilder.build()).build();
+		return new Biome.Builder()
+				.precipitation(true)
+				.temperature(0.7F)
+				.downfall(0.8F)
+				.effects(new BiomeEffects.Builder()
+						.waterColor(0x617B64)
+						.waterFogColor(0x232317)
+						.fogColor(0x666F80)
+						.skyColor(0x3D424D)
+						.foliageColor(0x384D2E)
+						.grassColor(0x204010)
+						.moodSound(BiomeMoodSound.CAVE)
+						.music(musicSound)
+						.build())
+				.spawnSettings(builder.build())
+				.generationSettings(lookupBackedBuilder.build())
+				.build();
 	}
 }
