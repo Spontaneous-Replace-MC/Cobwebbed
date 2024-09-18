@@ -32,6 +32,7 @@ import net.minecraft.data.client.Models;
 import pers.saikel0rado1iu.silk.api.generate.data.ModelGenUtil;
 import pers.saikel0rado1iu.silk.api.generate.data.client.ExtendedBlockStateModelGenerator;
 import pers.saikel0rado1iu.silk.api.generate.data.client.ExtendedItemModelGenerator;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
 
 /**
@@ -49,6 +50,12 @@ final class ModelGenerator extends FabricModelProvider {
 	@Override
 	public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 		ExtendedBlockStateModelGenerator generator = new ExtendedBlockStateModelGenerator(blockStateModelGenerator);
+		generator.registerTopSoil(Blocks.COBWEBBY_SOIL);
+		generator.registerCarpet(Blocks.GOSSAMER_CARPET, false);
+		generator.registerCustomModel(Blocks.GOSSAMERY_LEAVES, false);
+		Blocks.SPIDER_CHRYSALIS.registerBlockState(generator);
+		Blocks.SPIDER_EGG_COCOON.registerBlockState(generator);
+		generator.registerTintableCross(Blocks.STICKY_COMPACT_COBWEB, BlockStateModelGenerator.TintType.NOT_TINTED);
 	}
 	
 	@Override
@@ -64,7 +71,5 @@ final class ModelGenerator extends FabricModelProvider {
 		generator.register(Items.GUARD_SPIDER_SPAWN_EGG, ModelGenUtil.TEMPLATE_SPAWN_EGG);
 		generator.register(Items.SPRAY_POISON_SPIDER_SPAWN_EGG, ModelGenUtil.TEMPLATE_SPAWN_EGG);
 		generator.register(Items.WEAVING_WEB_SPIDER_SPAWN_EGG, ModelGenUtil.TEMPLATE_SPAWN_EGG);
-		generator.register(Items.SPIDER_CHRYSALIS, Models.GENERATED);
-		generator.register(Items.SPIDER_EGG_COCOON, Models.GENERATED);
 	}
 }

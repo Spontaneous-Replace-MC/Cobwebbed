@@ -34,9 +34,10 @@ import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Cobwebbed;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.damage.DamageTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.biome.BiomeKeys;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.WorldPresets;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.biome.source.BiomeSourceParamLists;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.ConfiguredFeatures;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.PlacedFeatures;
-import pers.saikel0rado1iu.spontaneousreplace.terriforest.world.gen.WorldPresets;
 
 import java.util.Optional;
 import java.util.Set;
@@ -79,7 +80,9 @@ public final class DataGen implements DataGenerator {
 				DamageTypes.INSTANCE,
 				ConfiguredFeatures.INSTANCE,
 				PlacedFeatures.INSTANCE,
-				BiomeKeys.INSTANCE
+				BiomeKeys.INSTANCE,
+				BiomeSourceParamLists.INSTANCE,
+				WorldPresets.INSTANCE
 		);
 	}
 	

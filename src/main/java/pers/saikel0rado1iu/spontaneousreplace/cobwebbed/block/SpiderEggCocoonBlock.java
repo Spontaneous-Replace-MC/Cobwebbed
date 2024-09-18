@@ -30,6 +30,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.data.client.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.tag.BlockTags;
@@ -40,6 +41,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import pers.saikel0rado1iu.silk.api.generate.data.client.ExtendedBlockStateModelGenerator;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.entity.BlockEntityTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.entity.SpiderEggCocoonBlockEntity;
 
@@ -66,6 +68,14 @@ public class SpiderEggCocoonBlock extends BlockWithEntity {
 	public SpiderEggCocoonBlock(Settings settings) {
 		super(settings);
 		setDefaultState(getDefaultState().with(Properties.VERTICAL_DIRECTION, Direction.UP));
+	}
+	
+	public void registerBlockState(ExtendedBlockStateModelGenerator generator) {
+		BlockStateVariantMap.SingleProperty<Direction> property = BlockStateVariantMap.create(Properties.VERTICAL_DIRECTION);
+		property.register(Direction.UP, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(this)));
+		property.register(Direction.DOWN, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(this)).put(VariantSettings.X, VariantSettings.Rotation.R180));
+		generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(this, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(this))).coordinate(property));
+		generator.registerItemModel(asItem());
 	}
 	
 	/**

@@ -37,8 +37,6 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect.StatusEffe
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.particle.ParticleTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.chunk.ClassicChunkGeneratorModify;
-import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.chunk.SnapshotChunkGeneratorModify;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.feature.Features;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.foliage.FoliagePlacerTypes;
 

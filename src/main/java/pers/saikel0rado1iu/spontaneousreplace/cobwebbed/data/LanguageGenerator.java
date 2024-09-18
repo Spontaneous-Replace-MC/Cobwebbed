@@ -30,6 +30,10 @@ import pers.saikel0rado1iu.silk.api.generate.data.LinkedLanguageProvider;
 import pers.saikel0rado1iu.silk.api.pattern.widget.WidgetTexts;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Cobwebbed;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Settings;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect.StatusEffects;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
 
 /**
  * <h2 style="color:FFC800">语言生成器</h2>
@@ -68,6 +72,27 @@ interface LanguageGenerator {
 					§r  I hope to make a gameplay mod that is based on the core of the vanilla game and does not destroy the vanilla gameplay. It is very difficult to develop on this basis. Whether an item is added, how to design data so as not to destroy the balance of the game, These are all points that developers need to consider.
 					§r  If you think the mod is doing a good job, you are welcome to sponsor my project, or translate this mod, thank your very much!""");
 			translationBuilder.add(OptionTexts.rootKey(Settings.SETTINGS), "Setting 'Cobwebbed' DLC...");
+			translationBuilder.add(Items.SPIDER_LEG, "Spider Leg");
+			translationBuilder.add(Items.DEPOISON_SPIDER_LEG, "De-Poison Spider Leg");
+			translationBuilder.add(Items.SPIDER_LEATHER, "Spider Leather");
+			translationBuilder.add(Items.SPIDER_FANG, "Spider Fang");
+			translationBuilder.add(Items.SPIDER_LEATHER_CAP, "Spider Leather Cap");
+			translationBuilder.add(Items.SPIDER_LEATHER_TUNIC, "Spider Leather Tunic");
+			translationBuilder.add(Items.SPIDER_LARVA_SPAWN_EGG, "Spider Larva Spawn Egg");
+			translationBuilder.add(Items.GUARD_SPIDER_SPAWN_EGG, "Guard Spider Spawn Egg");
+			translationBuilder.add(Items.SPRAY_POISON_SPIDER_SPAWN_EGG, "Spray Poison Spider Spawn Egg");
+			translationBuilder.add(Items.WEAVING_WEB_SPIDER_SPAWN_EGG, "Weaving-Web Spider Spawn Egg");
+			translationBuilder.add(Blocks.COBWEBBY_SOIL, "Cobwebby Soil");
+			translationBuilder.add(Blocks.GOSSAMER_CARPET, "Gossamer Carpet");
+			translationBuilder.add(Blocks.GOSSAMERY_LEAVES, "Gossamery Leaves");
+			translationBuilder.add(Blocks.SPIDER_CHRYSALIS, "Spider Chrysalis");
+			translationBuilder.add(Blocks.SPIDER_EGG_COCOON, "Spider Egg Cocoon");
+			translationBuilder.add(Blocks.STICKY_COMPACT_COBWEB, "Sticky-Compact Cobweb");
+			translationBuilder.add(EntityTypes.SPIDER_LARVA, "Spider Larva");
+			translationBuilder.add(EntityTypes.GUARD_SPIDER, "Guard Spider");
+			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "Spray Poison Spider");
+			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "Weaving-Web Spider");
+			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "Spider Camouflage");
 		}
 	}
 	
@@ -100,6 +125,27 @@ interface LanguageGenerator {
 					§r　　我希望做一个基于原版游戏内核，不破坏原版游戏玩法的玩法类模组。在这基础上进行开发十分困难，一件物品是否加入，怎样设计数据才不会破坏游戏平衡性，这些都是开发者需要考虑的点。
 					§r　　如果你觉得模组做的不错，欢迎对我的项目进行赞助，或者对此模组进行翻译，十分感谢你们!""");
 			translationBuilder.add(OptionTexts.rootKey(Settings.SETTINGS), "「蛛丝网迹」拓展包设置…");
+			translationBuilder.add(Items.SPIDER_LEG, "蜘蛛腿");
+			translationBuilder.add(Items.DEPOISON_SPIDER_LEG, "去毒蛛腿");
+			translationBuilder.add(Items.SPIDER_LEATHER, "蜘蛛护皮");
+			translationBuilder.add(Items.SPIDER_FANG, "蜘蛛毒牙");
+			translationBuilder.add(Items.SPIDER_LEATHER_CAP, "蜘蛛皮帽");
+			translationBuilder.add(Items.SPIDER_LEATHER_TUNIC, "蜘蛛皮甲");
+			translationBuilder.add(Items.SPIDER_LARVA_SPAWN_EGG, "幼蛛刷怪蛋");
+			translationBuilder.add(Items.GUARD_SPIDER_SPAWN_EGG, "蜘蛛卫兵刷怪蛋");
+			translationBuilder.add(Items.SPRAY_POISON_SPIDER_SPAWN_EGG, "喷吐毒蛛刷怪蛋");
+			translationBuilder.add(Items.WEAVING_WEB_SPIDER_SPAWN_EGG, "织网蜘蛛刷怪蛋");
+			translationBuilder.add(Blocks.COBWEBBY_SOIL, "丝化土");
+			translationBuilder.add(Blocks.GOSSAMER_CARPET, "覆地蛛丝");
+			translationBuilder.add(Blocks.GOSSAMERY_LEAVES, "覆丝树叶");
+			translationBuilder.add(Blocks.SPIDER_CHRYSALIS, "蜘蛛茧蛹");
+			translationBuilder.add(Blocks.SPIDER_EGG_COCOON, "蜘蛛卵茧");
+			translationBuilder.add(Blocks.STICKY_COMPACT_COBWEB, "黏密蛛网");
+			translationBuilder.add(EntityTypes.SPIDER_LARVA, "幼蛛");
+			translationBuilder.add(EntityTypes.GUARD_SPIDER, "蜘蛛卫兵");
+			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "喷吐毒蛛");
+			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "织网蜘蛛");
+			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛伪装");
 		}
 	}
 	
@@ -132,6 +178,27 @@ interface LanguageGenerator {
 					§r　　我希望做一個基於原版遊戲內核，不破壞原版遊戲玩法嘅玩法類模組。在這基礎上進行開發十分困難，一件物品是否加入，怎樣設計數據才不會破壞遊戲平衡性，這些都是開發者需要考慮嘅點。
 					§r　　如果你覺得模組做嘅不錯，歡迎對我嘅項目進行贊助，或者對此模組進行翻譯，十分感謝你們!""");
 			translationBuilder.add(OptionTexts.rootKey(Settings.SETTINGS), "「蛛絲網跡」拓展包設定⋯⋯");
+			translationBuilder.add(Items.SPIDER_LEG, "蜘蛛腿");
+			translationBuilder.add(Items.DEPOISON_SPIDER_LEG, "去毒蜘蛛腿");
+			translationBuilder.add(Items.SPIDER_LEATHER, "蜘蛛護皮");
+			translationBuilder.add(Items.SPIDER_FANG, "蜘蛛毒牙");
+			translationBuilder.add(Items.SPIDER_LEATHER_CAP, "蜘蛛皮帽");
+			translationBuilder.add(Items.SPIDER_LEATHER_TUNIC, "蜘蛛皮甲");
+			translationBuilder.add(Items.SPIDER_LARVA_SPAWN_EGG, "幼蛛 生成蛋");
+			translationBuilder.add(Items.GUARD_SPIDER_SPAWN_EGG, "蜘蛛衞兵 生成蛋");
+			translationBuilder.add(Items.SPRAY_POISON_SPIDER_SPAWN_EGG, "噴吐毒蛛 生成蛋");
+			translationBuilder.add(Items.WEAVING_WEB_SPIDER_SPAWN_EGG, "織網蜘蛛 生成蛋");
+			translationBuilder.add(Blocks.COBWEBBY_SOIL, "絲壤");
+			translationBuilder.add(Blocks.GOSSAMER_CARPET, "絲苔");
+			translationBuilder.add(Blocks.GOSSAMERY_LEAVES, "覆絲樹葉");
+			translationBuilder.add(Blocks.SPIDER_CHRYSALIS, "蜘蛛繭蛹");
+			translationBuilder.add(Blocks.SPIDER_EGG_COCOON, "蜘蛛卵繭");
+			translationBuilder.add(Blocks.STICKY_COMPACT_COBWEB, "黏密蛛網");
+			translationBuilder.add(EntityTypes.SPIDER_LARVA, "幼蛛");
+			translationBuilder.add(EntityTypes.GUARD_SPIDER, "蜘蛛衞兵");
+			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "噴吐毒蛛");
+			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "織網蜘蛛");
+			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛偽裝");
 		}
 	}
 	
@@ -164,6 +231,27 @@ interface LanguageGenerator {
 					§r　　我希望做一個基於原版遊戲核心，不破壞原版遊戲玩法的玩法類模組。在這基礎上進行開發十分困難，一件物品是否加入，怎樣設計資料才不會破壞遊戲平衡性，這些都是開發者需要考慮的點。
 					§r　　如果你覺得模組做的不錯，歡迎對我的專案進行贊助，或者對此模組進行翻譯，十分感謝你們!""");
 			translationBuilder.add(OptionTexts.rootKey(Settings.SETTINGS), "「蛛絲網跡」擴充套件設定...");
+			translationBuilder.add(Items.SPIDER_LEG, "蜘蛛腿");
+			translationBuilder.add(Items.DEPOISON_SPIDER_LEG, "去毒蜘蛛腿");
+			translationBuilder.add(Items.SPIDER_LEATHER, "蜘蛛護皮");
+			translationBuilder.add(Items.SPIDER_FANG, "蜘蛛毒牙");
+			translationBuilder.add(Items.SPIDER_LEATHER_CAP, "蜘蛛皮帽");
+			translationBuilder.add(Items.SPIDER_LEATHER_TUNIC, "蜘蛛皮甲");
+			translationBuilder.add(Items.SPIDER_LARVA_SPAWN_EGG, "幼蛛 生怪蛋");
+			translationBuilder.add(Items.GUARD_SPIDER_SPAWN_EGG, "蜘蛛衛兵 生怪蛋");
+			translationBuilder.add(Items.SPRAY_POISON_SPIDER_SPAWN_EGG, "噴吐毒蛛 生怪蛋");
+			translationBuilder.add(Items.WEAVING_WEB_SPIDER_SPAWN_EGG, "織網蜘蛛 生怪蛋");
+			translationBuilder.add(Blocks.COBWEBBY_SOIL, "絲壤");
+			translationBuilder.add(Blocks.GOSSAMER_CARPET, "覆地蛛絲");
+			translationBuilder.add(Blocks.GOSSAMERY_LEAVES, "覆絲樹葉");
+			translationBuilder.add(Blocks.SPIDER_CHRYSALIS, "蜘蛛繭蛹");
+			translationBuilder.add(Blocks.SPIDER_EGG_COCOON, "蜘蛛卵繭");
+			translationBuilder.add(Blocks.STICKY_COMPACT_COBWEB, "黏密蛛網");
+			translationBuilder.add(EntityTypes.SPIDER_LARVA, "幼蛛");
+			translationBuilder.add(EntityTypes.GUARD_SPIDER, "蜘蛛衛兵");
+			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "噴吐毒蛛");
+			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "織網蜘蛛");
+			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛偽裝");
 		}
 	}
 }

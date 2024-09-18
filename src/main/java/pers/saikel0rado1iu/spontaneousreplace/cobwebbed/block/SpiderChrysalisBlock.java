@@ -28,6 +28,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.data.client.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -40,6 +41,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
+import pers.saikel0rado1iu.silk.api.generate.data.client.ExtendedBlockStateModelGenerator;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.chrysalis.ChrysalisStyle;
 
 import java.util.Objects;
@@ -58,7 +60,7 @@ import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.state.property.Pr
  */
 public class SpiderChrysalisBlock extends HorizontalFacingBlock {
 	public static final float STRENGTH = 4;
-	public static final AbstractBlock.Settings SETTINGS = AbstractBlock.Settings.create().mapColor(MapColor.WHITE_GRAY).pistonBehavior(PistonBehavior.BLOCK);
+	public static final Settings SETTINGS = Settings.create().mapColor(MapColor.WHITE_GRAY).pistonBehavior(PistonBehavior.BLOCK);
 	public static final MapCodec<SpiderChrysalisBlock> CODEC = createCodec(SpiderChrysalisBlock::new);
 	protected ChrysalisStyle style = ChrysalisStyle.PLACEHOLDER;
 	
@@ -76,6 +78,32 @@ public class SpiderChrysalisBlock extends HorizontalFacingBlock {
 				.with(CHRYSALIS_STYLE, ChrysalisStyle.PLACEHOLDER)
 				.with(HORIZONTAL_FACING, Direction.NORTH)
 				.with(VERTICAL_DIRECTION, Direction.UP));
+	}
+	
+	public void registerBlockState(ExtendedBlockStateModelGenerator generator) {
+		BlockStateVariantMap.TripleProperty<ChrysalisStyle, Direction, Direction> property = BlockStateVariantMap.create(CHRYSALIS_STYLE, HORIZONTAL_FACING, VERTICAL_DIRECTION);
+		for (ChrysalisStyle style : CHRYSALIS_STYLE.getValues()) {
+			for (Direction vertical : VERTICAL_DIRECTION.getValues()) {
+				for (Direction horizontal : HORIZONTAL_FACING.getValues()) {
+					BlockStateVariant variant = BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(this, "_" + style.asString()));
+					variant.put(VariantSettings.Y, switch (horizontal) {
+						case EAST -> VariantSettings.Rotation.R90;
+						case SOUTH -> VariantSettings.Rotation.R180;
+						case WEST -> VariantSettings.Rotation.R270;
+						default -> VariantSettings.Rotation.R0;
+					});
+					switch (vertical) {
+						case UP -> variant.put(VariantSettings.X, VariantSettings.Rotation.R0);
+						case DOWN -> variant.put(VariantSettings.X, VariantSettings.Rotation.R180);
+						default -> {
+						}
+					}
+					property.register(style, horizontal, vertical, variant);
+				}
+			}
+		}
+		generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(this, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(this))).coordinate(property));
+		generator.registerItemModel(asItem());
 	}
 	
 	/**
@@ -146,7 +174,7 @@ public class SpiderChrysalisBlock extends HorizontalFacingBlock {
 	 * @param builder 构建器
 	 */
 	@Override
-	protected void appendProperties(StateManager.Builder<net.minecraft.block.Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(CHRYSALIS_STYLE, HORIZONTAL_FACING, VERTICAL_DIRECTION);
 	}
 	

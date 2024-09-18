@@ -42,8 +42,8 @@ public interface Blocks extends BlockRegistry {
 	CobwebbySoilBlock COBWEBBY_SOIL = BlockRegistry.registrar(() -> new CobwebbySoilBlock(FabricBlockSettings.copyOf(MYCELIUM).mapColor(MapColor.WHITE))).register("cobwebby_soil");
 	GossamerCarpetBlock GOSSAMER_CARPET = BlockRegistry.registrar(() -> new GossamerCarpetBlock(FabricBlockSettings.copyOf(MOSS_CARPET).noCollision().nonOpaque().mapColor(MapColor.WHITE_GRAY))).register("gossamer_carpet");
 	GossameryLeavesBlock GOSSAMERY_LEAVES = BlockRegistry.registrar(() -> new GossameryLeavesBlock(FabricBlockSettings.copyOf(OAK_LEAVES).mapColor(MapColor.WHITE_GRAY))).register("gossamery_leaves");
-	StickyCompactCobwebBlock STICKY_COMPACT_COBWEB = BlockRegistry.registrar(() -> new StickyCompactCobwebBlock(FabricBlockSettings.copyOf(StickyCompactCobwebBlock.SETTINGS)))
-			.other(stickyCompactCobweb -> FlammableBlockRegistry.getDefaultInstance().add(stickyCompactCobweb, StickyCompactCobwebBlock.BURN_CHANCE, StickyCompactCobwebBlock.SPREAD_CHANCE)).register("sticky_compact_cobweb");
 	SpiderChrysalisBlock SPIDER_CHRYSALIS = BlockRegistry.registrar(() -> new SpiderChrysalisBlock(FabricBlockSettings.copyOf(SpiderChrysalisBlock.SETTINGS).requiresTool().nonOpaque().strength(SpiderChrysalisBlock.STRENGTH))).register("spider_chrysalis");
 	SpiderEggCocoonBlock SPIDER_EGG_COCOON = BlockRegistry.registrar(() -> new SpiderEggCocoonBlock(FabricBlockSettings.copyOf(SpiderEggCocoonBlock.SETTINGS).requiresTool().nonOpaque().strength(SpiderEggCocoonBlock.STRENGTH))).register("spider_egg_cocoon");
+	StickyCompactCobwebBlock STICKY_COMPACT_COBWEB = BlockRegistry.registrar(() -> new StickyCompactCobwebBlock(FabricBlockSettings.copyOf(StickyCompactCobwebBlock.SETTINGS)))
+			.other(stickyCompactCobweb -> FlammableBlockRegistry.getDefaultInstance().add(stickyCompactCobweb, StickyCompactCobwebBlock.BURN_CHANCE, StickyCompactCobwebBlock.SPREAD_CHANCE)).register("sticky_compact_cobweb");
 }
