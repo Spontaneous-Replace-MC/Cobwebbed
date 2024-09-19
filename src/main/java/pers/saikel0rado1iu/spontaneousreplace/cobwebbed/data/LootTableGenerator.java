@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.data.server.loottable.EntityLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
@@ -87,7 +88,7 @@ public interface LootTableGenerator {
 			final net.minecraft.block.Block block = Blocks.SPIDER_CHRYSALIS;
 			// 默认风格
 			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.DEFAULT), LootTable.builder()
-					// 少量线掉落: 随机掉落 2 ~ 4 根线；受“幸运”与“时运”影响
+					// 中量线掉落: 随机掉落 2 ~ 4 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(0.5F))
 							.with(ItemEntry.builder(STRING)
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2, 4)))
@@ -100,21 +101,75 @@ public interface LootTableGenerator {
 							.conditionally(SurvivesExplosionLootCondition.builder()))
 					// 默认风格掉落物：50% 概率掉落动物掉落物；50% 概率掉落材料
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
-							.with(GroupEntry.create())
-							// 钻石掉落: 5% 概率掉落 1 颗；不受“幸运”与“时运”影响
-							.with(GroupEntry.create(ItemEntry.builder(DIAMOND).weight(5), EmptyEntry.builder().weight(95)).conditionally(SurvivesExplosionLootCondition.builder())
-									.groupEntry(GroupEntry.create(
-													ItemEntry.builder(COPPER_ORE)
-															.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 3)))
-															.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
-													ItemEntry.builder(COPPER_FOR_SMELTING_INGOT)
-															.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))
-															.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
-													ItemEntry.builder(IRON_INGOT)
-															.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 1)))
-															.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
-											.conditionally(SurvivesExplosionLootCondition.builder())
-									)))
+							.with(GroupEntry.create(
+											ItemEntry.builder(BEEF)
+													.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											ItemEntry.builder(PORKCHOP)
+													.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
+									.conditionally(SurvivesExplosionLootCondition.builder()))
+							.with(GroupEntry.create(
+											// 粗铜掉落: 33.33% 概率掉落 1 ~ 3 个；受“幸运”与“时运”影响
+											ItemEntry.builder(RAW_COPPER).weight(100)
+													.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											// 炼锭铜掉落: 33.33% 概率掉落 1 ~ 2 个；受“幸运”与“时运”影响
+											ItemEntry.builder(COPPER_FOR_SMELTING_INGOT).weight(100)
+													.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											// 粗铁掉落: 31.67% 概率掉落 1 个；受“幸运”与“时运”影响
+											ItemEntry.builder(RAW_IRON).weight(95)
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											// 钻石掉落: 1.67% 概率掉落 1 颗；不受“幸运”与“时运”影响
+											ItemEntry.builder(DIAMOND).weight(5))
+									.conditionally(SurvivesExplosionLootCondition.builder())))
+			);
+			// 大型风格
+			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.LARGE), LootTable.builder()
+					// 大量线掉落: 随机掉落 3 ~ 6 根线；受“幸运”与“时运”影响
+					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(0.5F))
+							.with(ItemEntry.builder(STRING)
+									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3, 6)))
+									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
+							.conditionally(SurvivesExplosionLootCondition.builder()))
+					// 致密蛛丝掉落: 33.33% 掉落 2 根线；受“幸运”与“时运”影响
+					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(0.5F))
+							.with(ItemEntry.builder(COMPACT_GOSSAMER)
+									.apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2)))
+									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
+							.with(EmptyEntry.builder().weight(2))
+							.conditionally(SurvivesExplosionLootCondition.builder()))
+					// 默认风格掉落物：50% 概率掉落动物掉落物；50% 概率掉落材料
+					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
+							.with(GroupEntry.create(
+											// 牛掉落物: 33.33% 概率；受“幸运”与“时运”影响
+											LootTableEntry.builder(EntityType.COW.getLootTableId())
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											// 羊掉落物: 33.33% 概率；受“幸运”与“时运”影响
+											LootTableEntry.builder(EntityType.SHEEP.getLootTableId())
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											// 猪掉落物: 33.33% 概率；受“幸运”与“时运”影响
+											LootTableEntry.builder(EntityType.PIG.getLootTableId())
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
+									.conditionally(SurvivesExplosionLootCondition.builder()))
+							.with(GroupEntry.create(
+											// 炼锭铜掉落: 33.33% 概率掉落 2 ~ 3 个；受“幸运”与“时运”影响
+											ItemEntry.builder(COPPER_FOR_SMELTING_INGOT).weight(100)
+													.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2, 3)))
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											// 粗铁掉落: 33.33% 概率掉落 1 ~ 3 个；受“幸运”与“时运”影响
+											ItemEntry.builder(RAW_IRON).weight(100)
+													.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											// 粗金掉落: 31.67% 概率掉落 1 ~ 2 个；受“幸运”与“时运”影响
+											ItemEntry.builder(RAW_IRON).weight(95)
+													.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
+													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
+											// 钻石掉落: 1.67% 概率掉落 1 ~ 2 颗；不受“幸运”与“时运”影响
+											ItemEntry.builder(DIAMOND).weight(5)
+													.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2))))
+									.conditionally(SurvivesExplosionLootCondition.builder())))
 			);
 			LootTable.Builder builder = LootTable.builder();
 			for (ChrysalisStyle style : Properties.CHRYSALIS_STYLE.getValues()) {
