@@ -95,7 +95,7 @@ public interface LootTableGenerator {
 							.conditionally(SurvivesExplosionLootCondition.builder()))
 					// 致密蛛丝掉落: 33.33% 掉落 1 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(0.5F))
-							.with(ItemEntry.builder(STRING).apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
+							.with(ItemEntry.builder(COMPACT_GOSSAMER).apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							.with(EmptyEntry.builder().weight(2))
 							.conditionally(SurvivesExplosionLootCondition.builder()))
 					// 默认风格掉落物：50% 概率掉落动物掉落物；50% 概率掉落材料
