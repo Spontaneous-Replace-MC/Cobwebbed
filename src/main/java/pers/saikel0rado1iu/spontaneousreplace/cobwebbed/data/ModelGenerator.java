@@ -26,14 +26,21 @@ package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.data.client.BlockStateModelGenerator;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.Models;
+import net.minecraft.data.client.*;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.Direction;
 import pers.saikel0rado1iu.silk.api.generate.data.ModelGenUtil;
 import pers.saikel0rado1iu.silk.api.generate.data.client.ExtendedBlockStateModelGenerator;
 import pers.saikel0rado1iu.silk.api.generate.data.client.ExtendedItemModelGenerator;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.SpiderChrysalisBlock;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.SpiderEggCocoonBlock;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.chrysalis.ChrysalisStyle;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
+
+import static net.minecraft.state.property.Properties.HORIZONTAL_FACING;
+import static net.minecraft.state.property.Properties.VERTICAL_DIRECTION;
+import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.state.property.Properties.CHRYSALIS_STYLE;
 
 /**
  * <h2 style="color:FFC800">模型生成器</h2>
@@ -47,14 +54,50 @@ final class ModelGenerator extends FabricModelProvider {
 		super(output);
 	}
 	
+	private static void registerSpiderChrysalisBlockState(ExtendedBlockStateModelGenerator generator) {
+		final SpiderChrysalisBlock block = Blocks.SPIDER_CHRYSALIS;
+		BlockStateVariantMap.TripleProperty<ChrysalisStyle, Direction, Direction> property = BlockStateVariantMap.create(CHRYSALIS_STYLE, HORIZONTAL_FACING, VERTICAL_DIRECTION);
+		for (ChrysalisStyle style : CHRYSALIS_STYLE.getValues()) {
+			for (Direction vertical : VERTICAL_DIRECTION.getValues()) {
+				for (Direction horizontal : HORIZONTAL_FACING.getValues()) {
+					BlockStateVariant variant = BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(block, "_" + style.asString()));
+					variant.put(VariantSettings.Y, switch (horizontal) {
+						case EAST -> VariantSettings.Rotation.R90;
+						case SOUTH -> VariantSettings.Rotation.R180;
+						case WEST -> VariantSettings.Rotation.R270;
+						default -> VariantSettings.Rotation.R0;
+					});
+					switch (vertical) {
+						case UP -> variant.put(VariantSettings.X, VariantSettings.Rotation.R0);
+						case DOWN -> variant.put(VariantSettings.X, VariantSettings.Rotation.R180);
+						default -> {
+						}
+					}
+					property.register(style, horizontal, vertical, variant);
+				}
+			}
+		}
+		generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(block))).coordinate(property));
+		generator.registerItemModel(block.asItem());
+	}
+	
+	private static void registerSpiderEggCocoonBlockState(ExtendedBlockStateModelGenerator generator) {
+		final SpiderEggCocoonBlock block = Blocks.SPIDER_EGG_COCOON;
+		BlockStateVariantMap.SingleProperty<Direction> property = BlockStateVariantMap.create(Properties.VERTICAL_DIRECTION);
+		property.register(Direction.UP, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(block)));
+		property.register(Direction.DOWN, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(block)).put(VariantSettings.X, VariantSettings.Rotation.R180));
+		generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(block))).coordinate(property));
+		generator.registerItemModel(block.asItem());
+	}
+	
 	@Override
 	public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 		ExtendedBlockStateModelGenerator generator = new ExtendedBlockStateModelGenerator(blockStateModelGenerator);
 		generator.registerTopSoil(Blocks.COBWEBBY_SOIL);
 		generator.registerCarpet(Blocks.GOSSAMER_CARPET, false);
 		generator.registerCustomModel(Blocks.GOSSAMERY_LEAVES, false);
-		Blocks.SPIDER_CHRYSALIS.registerBlockState(generator);
-		Blocks.SPIDER_EGG_COCOON.registerBlockState(generator);
+		registerSpiderChrysalisBlockState(generator);
+		registerSpiderEggCocoonBlockState(generator);
 		generator.registerTintableCross(Blocks.STICKY_COMPACT_COBWEB, BlockStateModelGenerator.TintType.NOT_TINTED);
 	}
 	
