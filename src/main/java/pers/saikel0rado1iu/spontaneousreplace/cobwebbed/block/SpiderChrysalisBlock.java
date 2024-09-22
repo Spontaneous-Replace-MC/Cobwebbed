@@ -206,17 +206,15 @@ public class SpiderChrysalisBlock extends HorizontalFacingBlock {
 		
 		if (state.get(VERTICAL_DIRECTION) == Direction.UP) {
 			return switch (state.get(CHRYSALIS_STYLE)) {
-				case PLACEHOLDER, IRON_GOLEM, HUMANOID, VILLAGER, CREEPER -> VoxelShapes.cuboid(0, 0, 0, 1, 1, 1);
-				case DEFAULT -> VoxelShapes.cuboid(0, 0, 0, 1, 0.9375, 1);
-				case LARGE -> VoxelShapes.cuboid(-0.125, 0, -0.125, 1.125, 1.5, 1.125);
+				case PLACEHOLDER, IRON_GOLEM, HUMANOID, VILLAGER, CREEPER, LARGE -> VoxelShapes.cuboid(0, 0, 0, 1, 1, 1);
+				case DEFAULT -> VoxelShapes.cuboid(0.0625, 0, 0.0625, 0.9375, 0.9375, 0.9375);
 				case SMALL, CHICKEN -> VoxelShapes.cuboid(0.0625, 0, 0.0625, 0.9375, 1, 0.9375);
 				case PLACEHOLDER_SHORT -> placeholderShortVoxelShape;
 			};
 		} else {
 			return switch (state.get(CHRYSALIS_STYLE)) {
-				case PLACEHOLDER, IRON_GOLEM, HUMANOID, VILLAGER, CREEPER -> VoxelShapes.cuboid(0, 0, 0, 1, 1, 1);
-				case DEFAULT -> VoxelShapes.cuboid(0, 0.0625, 0, 1, 1, 1);
-				case LARGE -> VoxelShapes.cuboid(-0.125, -0.5, -0.125, 1.125, 1, 1.125);
+				case PLACEHOLDER, IRON_GOLEM, HUMANOID, VILLAGER, CREEPER, LARGE -> VoxelShapes.cuboid(0, 0, 0, 1, 1, 1);
+				case DEFAULT -> VoxelShapes.cuboid(0.0625, 0.0625, 0.0625, 0.9375, 1, 0.9375);
 				case SMALL, CHICKEN -> VoxelShapes.cuboid(0.0625, 0, 0.0625, 0.9375, 1, 0.9375);
 				case PLACEHOLDER_SHORT -> placeholderShortVoxelShape;
 			};

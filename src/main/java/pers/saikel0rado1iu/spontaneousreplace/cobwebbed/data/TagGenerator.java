@@ -26,9 +26,12 @@ package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import pers.saikel0rado1iu.silk.api.spinningjenny.tag.BlockTags;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.registry.tag.BiomeTags;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.biome.BiomeKeys;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -51,6 +54,17 @@ interface TagGenerator {
 		protected void configure(RegistryWrapper.WrapperLookup arg) {
 			getOrCreateTagBuilder(LEAVES).add(Blocks.GOSSAMERY_LEAVES);
 			getOrCreateTagBuilder(BlockTags.COBWEB).add(Blocks.SPIDER_CHRYSALIS, Blocks.SPIDER_EGG_COCOON, Blocks.GOSSAMER_CARPET, Blocks.STICKY_COMPACT_COBWEB);
+		}
+	}
+	
+	final class Biome extends FabricTagProvider<net.minecraft.world.biome.Biome> {
+		Biome(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+			super(output, RegistryKeys.BIOME, registriesFuture);
+		}
+		
+		@Override
+		protected void configure(RegistryWrapper.WrapperLookup arg) {
+			getOrCreateTagBuilder(BiomeTags.IS_SPIDER_BIOME).add(BiomeKeys.CREEPY_SPIDER_FOREST);
 		}
 	}
 }

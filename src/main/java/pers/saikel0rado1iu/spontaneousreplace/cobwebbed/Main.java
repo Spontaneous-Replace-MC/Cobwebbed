@@ -25,6 +25,8 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.registry.Registries;
+import pers.saikel0rado1iu.silk.api.event.modplus.ModifyRecipeEvents;
 import pers.saikel0rado1iu.silk.api.modpass.ModData;
 import pers.saikel0rado1iu.silk.api.modpass.ModMain;
 import pers.saikel0rado1iu.silk.api.modpass.ModPass;
@@ -42,6 +44,9 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.foliage.Foliag
 
 import java.util.Set;
 
+import static pers.saikel0rado1iu.spontaneousreplace.item.Items.COMPACT_GOSSAMER;
+import static pers.saikel0rado1iu.spontaneousreplace.item.Items.STICKY_COMPACT_GOSSAMER;
+
 /**
  * <h2 style="color:FFC800">主类</h2>
  * 蛛丝网迹的主类
@@ -57,6 +62,8 @@ public final class Main implements ModMain {
 	 */
 	@Override
 	public void main(ModPass mod) {
+		ModifyRecipeEvents.REMOVE.register(recipeId -> recipeId.equals(Registries.ITEM.getId(COMPACT_GOSSAMER)));
+		ModifyRecipeEvents.REMOVE.register(recipeId -> recipeId.equals(Registries.ITEM.getId(STICKY_COMPACT_GOSSAMER)));
 	}
 	
 	/**
