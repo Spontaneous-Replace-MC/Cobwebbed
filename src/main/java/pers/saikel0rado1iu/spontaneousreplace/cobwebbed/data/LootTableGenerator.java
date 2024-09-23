@@ -375,6 +375,11 @@ public interface LootTableGenerator {
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							.conditionally(SurvivesExplosionLootCondition.builder()))
+					// 致密蛛丝掉落: 33.33% 掉落 1 根线；受“幸运”与“时运”影响
+					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
+							.with(ItemEntry.builder(COMPACT_GOSSAMER).apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
+							.with(EmptyEntry.builder().weight(2))
+							.conditionally(SurvivesExplosionLootCondition.builder()))
 					// 苦力怕头颅：有 25% 的概率掉落苦力怕头颅；不受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(CREEPER_HEAD).weight(1))
