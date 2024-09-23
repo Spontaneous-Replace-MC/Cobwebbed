@@ -30,19 +30,23 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.AdvancementRequirements;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.advancement.criterion.TickCriterion;
+import net.minecraft.advancement.criterion.*;
 import net.minecraft.data.server.recipe.RecipeProvider;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.predicate.DamagePredicate;
+import net.minecraft.predicate.entity.EntityEffectPredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import pers.saikel0rado1iu.silk.api.generate.data.AdvancementGenUtil;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Cobwebbed;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect.StatusEffects;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.biome.BiomeKeys;
-import pers.saikel0rado1iu.spontaneousreplace.item.Items;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,29 +67,22 @@ final class AdvancementGenerator extends FabricAdvancementProvider {
 			.display(COBWEBBY_SOIL, new Identifier("textures/block/calcite.png"), AdvancementFrame.TASK, true, true, false)
 			.criterion("biome", TickCriterion.Conditions.createLocation(Optional.of(EntityPredicate.Builder.create().location(LocationPredicate.Builder.createBiome(BiomeKeys.CREEPY_SPIDER_FOREST)).build())))
 			.build();
-	public static final AdvancementEntry HAVE_A_NEW_RANGED = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "have_a_new_ranged")
-			.parent(ROOT)
-			.display(Items.RECURVE_BOW, null, AdvancementFrame.TASK, true, true, false)
-			.criterion(RecipeProvider.hasItem(Items.SLINGSHOT), InventoryChangedCriterion.Conditions.items(Items.SLINGSHOT))
-			.criterion(RecipeProvider.hasItem(Items.RECURVE_BOW), InventoryChangedCriterion.Conditions.items(Items.RECURVE_BOW))
-			.criterion(RecipeProvider.hasItem(Items.ARBALEST), InventoryChangedCriterion.Conditions.items(Items.ARBALEST))
-			.criterion(RecipeProvider.hasItem(Items.COMPOUND_BOW), InventoryChangedCriterion.Conditions.items(Items.COMPOUND_BOW))
-			.criterion(RecipeProvider.hasItem(Items.JUGER_REPEATING_CROSSBOW), InventoryChangedCriterion.Conditions.items(Items.JUGER_REPEATING_CROSSBOW))
-			.criterion(RecipeProvider.hasItem(Items.MARKS_CROSSBOW), InventoryChangedCriterion.Conditions.items(Items.MARKS_CROSSBOW))
-			.criterion(RecipeProvider.hasItem(Items.ARROWPROOF_VEST), InventoryChangedCriterion.Conditions.items(Items.ARROWPROOF_VEST))
-			.requirements(AdvancementRequirements.anyOf(List.of(
-					RecipeProvider.hasItem(Items.SLINGSHOT),
-					RecipeProvider.hasItem(Items.RECURVE_BOW),
-					RecipeProvider.hasItem(Items.ARBALEST),
-					RecipeProvider.hasItem(Items.COMPOUND_BOW),
-					RecipeProvider.hasItem(Items.JUGER_REPEATING_CROSSBOW),
-					RecipeProvider.hasItem(Items.MARKS_CROSSBOW),
-					RecipeProvider.hasItem(Items.ARROWPROOF_VEST))))
-			.build();
 	static final AdvancementEntry KILL_A_NEW_SPIDER = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "kill_a_new_spider")
 			.parent(ROOT)
 			.display(SPIDER_LEG, null, AdvancementFrame.TASK, true, true, false)
-			.criterion("biome", TickCriterion.Conditions.createLocation(Optional.of(EntityPredicate.Builder.create().location(LocationPredicate.Builder.createBiome(BiomeKeys.CREEPY_SPIDER_FOREST)).build())))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.SPIDER_LARVA).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.SPIDER_LARVA)))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.GUARD_SPIDER).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.GUARD_SPIDER)))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.SPRAY_POISON_SPIDER).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.SPRAY_POISON_SPIDER)))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.WEAVING_WEB_SPIDER).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.WEAVING_WEB_SPIDER)))
+			.requirements(AdvancementRequirements.anyOf(List.of(
+					Registries.ENTITY_TYPE.getId(EntityTypes.SPIDER_LARVA).toString(),
+					Registries.ENTITY_TYPE.getId(EntityTypes.GUARD_SPIDER).toString(),
+					Registries.ENTITY_TYPE.getId(EntityTypes.SPRAY_POISON_SPIDER).toString(),
+					Registries.ENTITY_TYPE.getId(EntityTypes.WEAVING_WEB_SPIDER).toString())))
 			.build();
 	static final AdvancementEntry SHOT_SPRAY_POISON_SPIDER = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "shot_spray_poison_spider")
 			.parent(KILL_A_NEW_SPIDER)
@@ -94,22 +91,36 @@ final class AdvancementGenerator extends FabricAdvancementProvider {
 				stack.setSubNbt("Potion", NbtString.of("poison"));
 				return stack;
 			}).get(), null, AdvancementFrame.TASK, true, true, false)
-			.criterion("biome", TickCriterion.Conditions.createLocation(Optional.of(EntityPredicate.Builder.create().location(LocationPredicate.Builder.createBiome(BiomeKeys.CREEPY_SPIDER_FOREST)).build())))
+			.criterion("shot_spray_poison_spider", PlayerHurtEntityCriterion.Conditions.create(
+					Optional.of(DamagePredicate.Builder.create().sourceEntity(EntityPredicate.Builder.create().type(EntityType.ARROW).build()).build()),
+					Optional.of(EntityPredicate.Builder.create().type(EntityTypes.SPRAY_POISON_SPIDER).build())))
 			.build();
 	static final AdvancementEntry HAVE_A_DEPOISON_SPIDER_LEG = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "have_a_depoison_spider_leg")
 			.parent(KILL_A_NEW_SPIDER)
 			.display(DEPOISON_SPIDER_LEG, null, AdvancementFrame.TASK, true, true, false)
-			.criterion("biome", TickCriterion.Conditions.createLocation(Optional.of(EntityPredicate.Builder.create().location(LocationPredicate.Builder.createBiome(BiomeKeys.CREEPY_SPIDER_FOREST)).build())))
+			.criterion(RecipeProvider.hasItem(DEPOISON_SPIDER_LEG), InventoryChangedCriterion.Conditions.items(DEPOISON_SPIDER_LEG))
 			.build();
 	static final AdvancementEntry HAVE_EFFECT_SPIDER_CAMOUFLAGE = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "have_effect_spider_camouflage")
 			.parent(HAVE_A_DEPOISON_SPIDER_LEG)
 			.display(SPIDER_EGG_COCOON, null, AdvancementFrame.TASK, true, true, false)
-			.criterion("biome", TickCriterion.Conditions.createLocation(Optional.of(EntityPredicate.Builder.create().location(LocationPredicate.Builder.createBiome(BiomeKeys.CREEPY_SPIDER_FOREST)).build())))
+			.criterion(Registries.STATUS_EFFECT.getId(StatusEffects.SPIDER_CAMOUFLAGE) + "",
+					EffectsChangedCriterion.Conditions.create(EntityEffectPredicate.Builder.create().addEffect(StatusEffects.SPIDER_CAMOUFLAGE)))
 			.build();
 	static final AdvancementEntry KILL_ALL_SPIDERS = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "kill_all_spiders")
 			.parent(KILL_A_NEW_SPIDER)
 			.display(GUARD_SPIDER_SPAWN_EGG, null, AdvancementFrame.TASK, true, true, false)
-			.criterion("biome", TickCriterion.Conditions.createLocation(Optional.of(EntityPredicate.Builder.create().location(LocationPredicate.Builder.createBiome(BiomeKeys.CREEPY_SPIDER_FOREST)).build())))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityType.SPIDER).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityType.SPIDER)))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityType.CAVE_SPIDER).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityType.CAVE_SPIDER)))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.SPIDER_LARVA).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.SPIDER_LARVA)))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.GUARD_SPIDER).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.GUARD_SPIDER)))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.SPRAY_POISON_SPIDER).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.SPRAY_POISON_SPIDER)))
+			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.WEAVING_WEB_SPIDER).toString(), OnKilledCriterion.Conditions
+					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.WEAVING_WEB_SPIDER)))
 			.build();
 	
 	AdvancementGenerator(FabricDataOutput output) {

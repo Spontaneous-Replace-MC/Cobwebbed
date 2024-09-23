@@ -34,6 +34,7 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect.StatusEffects;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
 
 /**
  * <h2 style="color:FFC800">语言生成器</h2>
@@ -93,6 +94,20 @@ interface LanguageGenerator {
 			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "Spray Poison Spider");
 			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "Weaving-Web Spider");
 			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "Spider Camouflage");
+			translationBuilder.add(soundSub(SoundEvents.SPRAY_TOXIN), "Spray poison spider spray toxin");
+			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR), "Spider leather armor sizzle");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.ROOT), "Spider Biome");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.ROOT), "Contact to spontaneous evolving spider biome");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_A_NEW_SPIDER), "A New Spider?");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_A_NEW_SPIDER), "Kill a spontaneous-replace spider variant");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "Take This");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "Shoot a spray poison spider with an arrow");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.HAVE_A_DEPOISON_SPIDER_LEG), "New Rotten Flesh");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.HAVE_A_DEPOISON_SPIDER_LEG), "Cooking spider leg");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.HAVE_EFFECT_SPIDER_CAMOUFLAGE), "Spider Camouflage");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.HAVE_EFFECT_SPIDER_CAMOUFLAGE), "Equip the spider leather set to avoid triggering spider egg cocoons");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_ALL_SPIDERS), "Bane Of Arthropods");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_ALL_SPIDERS), "Kill all types of spiders");
 		}
 	}
 	
@@ -146,6 +161,20 @@ interface LanguageGenerator {
 			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "喷吐毒蛛");
 			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "织网蜘蛛");
 			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛伪装");
+			translationBuilder.add(soundSub(SoundEvents.SPRAY_TOXIN), "喷吐毒蛛：喷吐毒素");
+			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR), "蜘蛛皮甲：摩挲");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.ROOT), "蜘蛛群系");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.ROOT), "接触到自然演变的蜘蛛群系");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_A_NEW_SPIDER), "新的蜘蛛？");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_A_NEW_SPIDER), "击杀一只特殊的蜘蛛变体");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "来尝尝这个");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "使用箭射中喷吐毒蛛");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.HAVE_A_DEPOISON_SPIDER_LEG), "新款辣条");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.HAVE_A_DEPOISON_SPIDER_LEG), "烹饪一份蜘蛛腿");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.HAVE_EFFECT_SPIDER_CAMOUFLAGE), "蜘蛛伪装");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.HAVE_EFFECT_SPIDER_CAMOUFLAGE), "装备蜘蛛护皮套装以避免触发蜘蛛卵茧");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_ALL_SPIDERS), "节肢杀手");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_ALL_SPIDERS), "击杀所有种类的蜘蛛");
 		}
 	}
 	
@@ -199,6 +228,20 @@ interface LanguageGenerator {
 			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "噴吐毒蛛");
 			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "織網蜘蛛");
 			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛偽裝");
+			translationBuilder.add(soundSub(SoundEvents.SPRAY_TOXIN), "噴吐毒蛛噴吐毒素");
+			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR), "裝備蜘蛛皮甲");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.ROOT), "蜘蛛羣落");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.ROOT), "接觸到自然演變嘅蜘蛛羣落");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_A_NEW_SPIDER), "新嘅蜘蛛？");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_A_NEW_SPIDER), "擊殺一隻特殊嘅蜘蛛變體");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "來嚐嚐這個");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "使用箭射中噴吐毒蛛");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.HAVE_A_DEPOISON_SPIDER_LEG), "新式腐肉");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.HAVE_A_DEPOISON_SPIDER_LEG), "烹飪一份蜘蛛腿");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.HAVE_EFFECT_SPIDER_CAMOUFLAGE), "蜘蛛偽裝");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.HAVE_EFFECT_SPIDER_CAMOUFLAGE), "裝備蜘蛛護皮套裝以避免觸發蜘蛛卵繭");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_ALL_SPIDERS), "節肢剋星");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_ALL_SPIDERS), "擊殺所有種類嘅蜘蛛");
 		}
 	}
 	
@@ -252,6 +295,20 @@ interface LanguageGenerator {
 			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "噴吐毒蛛");
 			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "織網蜘蛛");
 			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛偽裝");
+			translationBuilder.add(soundSub(SoundEvents.SPRAY_TOXIN), "噴吐毒蛛噴吐毒素");
+			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR), "蜘蛛皮甲裝備聲");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.ROOT), "蜘蛛生態域");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.ROOT), "接觸到自然演變的蜘蛛生態域");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_A_NEW_SPIDER), "新的蜘蛛？");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_A_NEW_SPIDER), "擊殺一隻特殊的蜘蛛變體");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "來嚐嚐這個");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "使用箭射中噴吐毒蛛");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.HAVE_A_DEPOISON_SPIDER_LEG), "新式腐肉");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.HAVE_A_DEPOISON_SPIDER_LEG), "烹飪一份蜘蛛腿");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.HAVE_EFFECT_SPIDER_CAMOUFLAGE), "蜘蛛偽裝");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.HAVE_EFFECT_SPIDER_CAMOUFLAGE), "裝備蜘蛛護皮套裝以避免觸發蜘蛛卵繭");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_ALL_SPIDERS), "節肢剋星");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_ALL_SPIDERS), "擊殺所有種類的蜘蛛");
 		}
 	}
 }

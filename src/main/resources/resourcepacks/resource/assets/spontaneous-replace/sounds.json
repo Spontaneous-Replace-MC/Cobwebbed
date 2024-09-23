@@ -1,0 +1,19 @@
+{
+  "spray_poison_spider.spray_toxin": {
+    "subtitle": "subtitles.spontaneous-replace.spray_poison_spider.spray_toxin",
+    "sounds": [
+      "spontaneous-replace:spray_poison_spider/spray_toxin"
+    ]
+  },
+  "spider_leather_armor.equip": {
+    "subtitle": "subtitles.spontaneous-replace.spider_leather_armor.equip",
+    "sounds": [
+      "spontaneous-replace:spider_leather_armor/equip_1",
+      "spontaneous-replace:spider_leather_armor/equip_2",
+      "spontaneous-replace:spider_leather_armor/equip_3",
+      "spontaneous-replace:spider_leather_armor/equip_4",
+      "spontaneous-replace:spider_leather_armor/equip_5",
+      "spontaneous-replace:spider_leather_armor/equip_6"
+    ]
+  }
+}
