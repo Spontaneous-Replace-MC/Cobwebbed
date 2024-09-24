@@ -10,7 +10,7 @@ version = project.mc_main_version + "-" + project.mod_version + "+" + project.mo
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name
+	archivesName = project.mod_id
 }
 
 repositories {
