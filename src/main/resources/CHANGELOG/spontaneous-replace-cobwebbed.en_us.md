@@ -1,3 +1,10 @@
+## 1.20.4-1.0.1+bu——2024/10/06
+
+### Update：
+
+- Client
+	- Resource Pack Translation for Completing Spider Content Advancements.
+
 ## 1.20.4-1.0.0+bu——2024/09/25
 
 ### Update：
