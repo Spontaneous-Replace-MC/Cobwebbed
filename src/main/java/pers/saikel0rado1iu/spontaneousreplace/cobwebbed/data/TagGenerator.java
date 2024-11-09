@@ -28,8 +28,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
 import pers.saikel0rado1iu.silk.api.spinningjenny.tag.BlockTags;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
+import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.registry.tag.BiomeTags;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.biome.BiomeKeys;
 
@@ -45,6 +47,17 @@ import static net.minecraft.registry.tag.BlockTags.LEAVES;
  * @since 1.0.0
  */
 interface TagGenerator {
+	final class Item extends FabricTagProvider.ItemTagProvider {
+		Item(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+			super(output, completableFuture);
+		}
+		
+		@Override
+		protected void configure(RegistryWrapper.WrapperLookup arg) {
+			getOrCreateTagBuilder(ItemTags.MEAT).add(Items.SPIDER_LEG, Items.DEPOISON_SPIDER_LEG);
+		}
+	}
+	
 	final class Block extends FabricTagProvider.BlockTagProvider {
 		Block(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
 			super(output, completableFuture);

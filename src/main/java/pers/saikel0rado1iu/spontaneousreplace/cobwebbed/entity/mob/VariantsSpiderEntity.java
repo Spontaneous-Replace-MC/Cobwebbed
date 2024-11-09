@@ -33,7 +33,6 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.*;
@@ -135,18 +134,18 @@ public abstract class VariantsSpiderEntity extends SpiderEntity {
 	 * <p>重写实体初始化函数，使用一个内部类替换抽象祖父类实例</p>
 	 * <p>然后使用方法句柄方式跳过父类调用祖父类实例的初始化代码重新编写自定义初始化</p>
 	 */
-	@SuppressWarnings("ConstantValue")
 	@Override
-	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+	public @Nullable EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
 		try {
-			MethodType methodType = MethodType.methodType(EntityData.class, ServerWorldAccess.class, LocalDifficulty.class, SpawnReason.class, EntityData.class, NbtCompound.class);
+			MethodType methodType = MethodType.methodType(EntityData.class, ServerWorldAccess.class, LocalDifficulty.class, SpawnReason.class, EntityData.class);
 			MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(HostileEntity.class, MethodHandles.lookup());
 			
+			@SuppressWarnings("ConstantValue")
 			MethodHandle methodHandle = lookup.findSpecial(HostileEntity.class,
 					HostileEntity.class.getName().contains("class_") ? "method_5943" : "initialize",
 					methodType, HostileEntity.class).bindTo(this);
 			
-			return (EntityData) methodHandle.invoke(world, difficulty, spawnReason, entityData, entityNbt);
+			return (EntityData) methodHandle.invoke(world, difficulty, spawnReason, entityData);
 		} catch (Throwable e) {
 			throw new RuntimeException(e);
 		}

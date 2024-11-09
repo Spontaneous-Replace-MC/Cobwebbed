@@ -25,7 +25,7 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.particle;
 
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import pers.saikel0rado1iu.silk.api.spinningjenny.ParticleTypeRegistry;
 
 
@@ -37,5 +37,5 @@ import pers.saikel0rado1iu.silk.api.spinningjenny.ParticleTypeRegistry;
  * @since 1.0.0
  */
 public interface ParticleTypes extends ParticleTypeRegistry {
-	DefaultParticleType TOXIN_PARTICLE = ParticleTypeRegistry.registrar(() -> FabricParticleTypes.simple()).register("toxin_projectile");
+	SimpleParticleType TOXIN_PARTICLE = ParticleTypeRegistry.registrar(() -> FabricParticleTypes.simple()).register("toxin_projectile");
 }

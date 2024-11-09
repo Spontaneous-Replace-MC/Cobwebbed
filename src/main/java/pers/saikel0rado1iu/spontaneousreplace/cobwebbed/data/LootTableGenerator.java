@@ -46,13 +46,16 @@ import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.chrysalis.ChrysalisStyle;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.EntityTypes;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.state.property.Properties;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 import static net.minecraft.block.Blocks.DIRT;
@@ -69,12 +72,12 @@ import static pers.saikel0rado1iu.spontaneousreplace.item.Items.*;
  */
 public interface LootTableGenerator {
 	final class Block extends FabricBlockLootTableProvider {
-		Block(FabricDataOutput dataOutput) {
-			super(dataOutput);
+		Block(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+			super(dataOutput, registryLookup);
 		}
 		
-		private static Identifier getTempMobId(EntityType<?> entityType) {
-			return Registries.ENTITY_TYPE.getId(entityType).withPrefixedPath("blocks/template_");
+		private static RegistryKey<LootTable> getTempMobKey(EntityType<?> entityType) {
+			return RegistryKey.of(RegistryKeys.LOOT_TABLE, Registries.ENTITY_TYPE.getId(entityType).withPrefixedPath("blocks/template_"));
 		}
 		
 		@Override
@@ -87,13 +90,13 @@ public interface LootTableGenerator {
 		}
 		
 		private void templateMobDrops() {
-			lootTables.put(getTempMobId(EntityType.PIG), LootTable.builder()
+			lootTables.put(getTempMobKey(EntityType.PIG), LootTable.builder()
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(BEEF)
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							.conditionally(SurvivesExplosionLootCondition.builder())));
-			lootTables.put(getTempMobId(EntityType.COW), LootTable.builder()
+			lootTables.put(getTempMobKey(EntityType.COW), LootTable.builder()
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(LEATHER)
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 1)))
@@ -104,7 +107,7 @@ public interface LootTableGenerator {
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							.conditionally(SurvivesExplosionLootCondition.builder())));
-			lootTables.put(getTempMobId(EntityType.SHEEP), LootTable.builder()
+			lootTables.put(getTempMobKey(EntityType.SHEEP), LootTable.builder()
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(WHITE_WOOL)
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 1)))
@@ -115,7 +118,7 @@ public interface LootTableGenerator {
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							.conditionally(SurvivesExplosionLootCondition.builder())));
-			lootTables.put(getTempMobId(EntityType.ZOMBIE), LootTable.builder()
+			lootTables.put(getTempMobKey(EntityType.ZOMBIE), LootTable.builder()
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							// 有 5% 的概率掉落僵尸头颅
 							.with(ItemEntry.builder(ZOMBIE_HEAD).weight(5))
@@ -126,7 +129,7 @@ public interface LootTableGenerator {
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							.conditionally(SurvivesExplosionLootCondition.builder())));
-			lootTables.put(getTempMobId(EntityType.SKELETON), LootTable.builder()
+			lootTables.put(getTempMobKey(EntityType.SKELETON), LootTable.builder()
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							// 有 5% 的概率掉落骷髅头颅
 							.with(ItemEntry.builder(SKELETON_SKULL).weight(5))
@@ -137,7 +140,7 @@ public interface LootTableGenerator {
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							.conditionally(SurvivesExplosionLootCondition.builder())));
-			lootTables.put(getTempMobId(EntityType.VILLAGER), LootTable.builder()
+			lootTables.put(getTempMobKey(EntityType.VILLAGER), LootTable.builder()
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(PAPER)
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))
@@ -148,7 +151,7 @@ public interface LootTableGenerator {
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							.conditionally(SurvivesExplosionLootCondition.builder())));
-			lootTables.put(getTempMobId(EntityType.WANDERING_TRADER), LootTable.builder()
+			lootTables.put(getTempMobKey(EntityType.WANDERING_TRADER), LootTable.builder()
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(LEAD)
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))))
@@ -165,7 +168,7 @@ public interface LootTableGenerator {
 			// 生成模板生物掉落物
 			templateMobDrops();
 			// 默认风格
-			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.DEFAULT), LootTable.builder()
+			lootTables.put(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + ChrysalisStyle.DEFAULT)), LootTable.builder()
 					// 中量线掉落: 随机掉落 2 ~ 4 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(STRING)
@@ -182,13 +185,13 @@ public interface LootTableGenerator {
 							// 50% 概率掉落动物掉落物
 							.with(GroupEntry.create(
 											// 猪掉落物: 33.33% 概率；受“幸运”与“时运”影响
-											LootTableEntry.builder(getTempMobId(EntityType.PIG)).weight(100)
+											LootTableEntry.builder(getTempMobKey(EntityType.PIG)).weight(100)
 													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
 											// 牛掉落物: 33.33% 概率；受“幸运”与“时运”影响
-											LootTableEntry.builder(getTempMobId(EntityType.COW)).weight(100)
+											LootTableEntry.builder(getTempMobKey(EntityType.COW)).weight(100)
 													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
 											// 羊掉落物: 33.33% 概率；受“幸运”与“时运”影响
-											LootTableEntry.builder(getTempMobId(EntityType.SHEEP)).weight(100)
+											LootTableEntry.builder(getTempMobKey(EntityType.SHEEP)).weight(100)
 													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 									.conditionally(SurvivesExplosionLootCondition.builder()))
 							// 50% 概率掉落少量材料
@@ -209,7 +212,7 @@ public interface LootTableGenerator {
 									.conditionally(SurvivesExplosionLootCondition.builder())))
 			);
 			// 大型风格
-			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.LARGE), LootTable.builder()
+			lootTables.put(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + ChrysalisStyle.LARGE)), LootTable.builder()
 					// 大量线掉落: 随机掉落 3 ~ 6 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(STRING)
@@ -228,15 +231,15 @@ public interface LootTableGenerator {
 							// 50% 概率掉落双倍动物掉落物
 							.with(GroupEntry.create(
 											// 猪掉落物: 33.33% 概率；受“幸运”与“时运”影响
-											LootTableEntry.builder(getTempMobId(EntityType.PIG)).weight(100)
+											LootTableEntry.builder(getTempMobKey(EntityType.PIG)).weight(100)
 													.apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2)))
 													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
 											// 牛掉落物: 33.33% 概率；受“幸运”与“时运”影响
-											LootTableEntry.builder(getTempMobId(EntityType.COW)).weight(100)
+											LootTableEntry.builder(getTempMobKey(EntityType.COW)).weight(100)
 													.apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2)))
 													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)),
 											// 羊掉落物: 33.33% 概率；受“幸运”与“时运”影响
-											LootTableEntry.builder(getTempMobId(EntityType.SHEEP)).weight(100)
+											LootTableEntry.builder(getTempMobKey(EntityType.SHEEP)).weight(100)
 													.apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2)))
 													.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 									.conditionally(SurvivesExplosionLootCondition.builder()))
@@ -260,7 +263,7 @@ public interface LootTableGenerator {
 									.conditionally(SurvivesExplosionLootCondition.builder())))
 			);
 			// 小型风格
-			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.SMALL), LootTable.builder()
+			lootTables.put(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + ChrysalisStyle.SMALL)), LootTable.builder()
 					// 少量线掉落: 随机掉落 1 ~ 3 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(STRING)
@@ -282,7 +285,7 @@ public interface LootTableGenerator {
 									.conditionally(SurvivesExplosionLootCondition.builder())))
 			);
 			// 类人风格
-			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.HUMANOID), LootTable.builder()
+			lootTables.put(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + ChrysalisStyle.HUMANOID)), LootTable.builder()
 					// 中量线掉落: 随机掉落 2 ~ 4 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(STRING)
@@ -297,10 +300,10 @@ public interface LootTableGenerator {
 					// 类人风格掉落物
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							// 33.33% 概率掉落僵尸掉落物
-							.with(LootTableEntry.builder(getTempMobId(EntityType.ZOMBIE)).weight(25)
+							.with(LootTableEntry.builder(getTempMobKey(EntityType.ZOMBIE)).weight(25)
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							// 33.33% 概率掉落骷髅掉落物
-							.with(LootTableEntry.builder(getTempMobId(EntityType.SKELETON)).weight(25)
+							.with(LootTableEntry.builder(getTempMobKey(EntityType.SKELETON)).weight(25)
 									.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE)))
 							// 33.33% 概率掉落装备
 							.with(GroupEntry.create(
@@ -325,7 +328,7 @@ public interface LootTableGenerator {
 							.conditionally(SurvivesExplosionLootCondition.builder()))
 			);
 			// 村民风格
-			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.VILLAGER), LootTable.builder()
+			lootTables.put(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + ChrysalisStyle.VILLAGER)), LootTable.builder()
 					// 中量线掉落: 随机掉落 2 ~ 4 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(STRING)
@@ -340,14 +343,14 @@ public interface LootTableGenerator {
 					// 默认风格掉落物
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							// 50% 概率掉落村民掉落物
-							.with(LootTableEntry.builder(getTempMobId(EntityType.VILLAGER))
+							.with(LootTableEntry.builder(getTempMobKey(EntityType.VILLAGER))
 									.conditionally(SurvivesExplosionLootCondition.builder()))
 							// 50% 概率掉落流浪商人掉落物
-							.with(LootTableEntry.builder(getTempMobId(EntityType.WANDERING_TRADER))
+							.with(LootTableEntry.builder(getTempMobKey(EntityType.WANDERING_TRADER))
 									.conditionally(SurvivesExplosionLootCondition.builder())))
 			);
 			// 小鸡风格
-			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.CHICKEN), LootTable.builder()
+			lootTables.put(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + ChrysalisStyle.CHICKEN)), LootTable.builder()
 					// 少量线掉落: 随机掉落 1 ~ 3 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(STRING)
@@ -368,7 +371,7 @@ public interface LootTableGenerator {
 							.conditionally(SurvivesExplosionLootCondition.builder()))
 			);
 			// 苦力怕风格
-			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.CREEPER), LootTable.builder()
+			lootTables.put(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + ChrysalisStyle.CREEPER)), LootTable.builder()
 					// 少量线掉落: 随机掉落 1 ~ 3 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(STRING)
@@ -393,7 +396,7 @@ public interface LootTableGenerator {
 							.conditionally(SurvivesExplosionLootCondition.builder()))
 			);
 			// 铁傀儡风格
-			lootTables.put(block.getLootTableId().withSuffixedPath("_" + ChrysalisStyle.IRON_GOLEM), LootTable.builder()
+			lootTables.put(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + ChrysalisStyle.IRON_GOLEM)), LootTable.builder()
 					// 巨量线掉落: 随机掉落 5 ~ 10 根线；受“幸运”与“时运”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).bonusRolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(STRING)
@@ -434,7 +437,7 @@ public interface LootTableGenerator {
 			for (ChrysalisStyle style : Properties.CHRYSALIS_STYLE.getValues()) {
 				if (ChrysalisStyle.PLACEHOLDER == style || ChrysalisStyle.PLACEHOLDER_SHORT == style) continue;
 				builder.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
-						.with(LootTableEntry.builder(block.getLootTableId().withSuffixedPath("_" + style.asString())))
+						.with(LootTableEntry.builder(RegistryKey.of(RegistryKeys.LOOT_TABLE, block.getLootTableKey().getValue().withSuffixedPath("_" + style.asString()))))
 						.conditionally(SurvivesExplosionLootCondition.builder())
 						.conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(Properties.CHRYSALIS_STYLE, style))));
 			}
@@ -443,13 +446,13 @@ public interface LootTableGenerator {
 	}
 	
 	final class Entity extends SimpleFabricLootTableProvider {
-		public Entity(FabricDataOutput dataOutput) {
-			super(dataOutput, LootContextTypes.ENTITY);
+		public Entity(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+			super(dataOutput, registryLookup, LootContextTypes.ENTITY);
 		}
 		
 		@Override
-		public void accept(BiConsumer<Identifier, LootTable.Builder> exporter) {
-			exporter.accept(EntityTypes.GUARD_SPIDER.getLootTableId(), LootTable.builder()
+		public void accept(RegistryWrapper.WrapperLookup registryLookup, BiConsumer<RegistryKey<LootTable>, LootTable.Builder> consumer) {
+			consumer.accept(EntityTypes.GUARD_SPIDER.getLootTableId(), LootTable.builder()
 					// 蜘蛛腿掉落：随机掉落 1 ~ 2 个；受“掠夺”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(Items.SPIDER_LEG)
@@ -461,7 +464,7 @@ public interface LootTableGenerator {
 							.with(ItemEntry.builder(Items.SPIDER_LEATHER))
 							.with(EmptyEntry.builder())
 							.apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1)))));
-			exporter.accept(EntityTypes.SPRAY_POISON_SPIDER.getLootTableId(), LootTable.builder()
+			consumer.accept(EntityTypes.SPRAY_POISON_SPIDER.getLootTableId(), LootTable.builder()
 					// 蜘蛛腿掉落：随机掉落 1 ~ 2 个；受“掠夺”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(Items.SPIDER_LEG)
@@ -473,7 +476,7 @@ public interface LootTableGenerator {
 							.with(ItemEntry.builder(Items.SPIDER_FANG))
 							.with(EmptyEntry.builder())
 							.apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1)))));
-			exporter.accept(EntityTypes.WEAVING_WEB_SPIDER.getLootTableId(), LootTable.builder()
+			consumer.accept(EntityTypes.WEAVING_WEB_SPIDER.getLootTableId(), LootTable.builder()
 					// 蜘蛛腿掉落：随机掉落 1 ~ 2 个；受“掠夺”影响
 					.pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1))
 							.with(ItemEntry.builder(Items.SPIDER_LEG)

@@ -24,7 +24,6 @@
 
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.entity;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import pers.saikel0rado1iu.silk.api.spinningjenny.BlockEntityTypeRegistry;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
@@ -37,5 +36,5 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
  * @since 1.0.0
  */
 public interface BlockEntityTypes extends BlockEntityTypeRegistry {
-	BlockEntityType<SpiderEggCocoonBlockEntity> SPIDER_EGG_COCOON = BlockEntityTypeRegistry.registrar(() -> FabricBlockEntityTypeBuilder.create(SpiderEggCocoonBlockEntity::new, Blocks.SPIDER_EGG_COCOON).build()).register("spider_egg_cocoon");
+	BlockEntityType<SpiderEggCocoonBlockEntity> SPIDER_EGG_COCOON = BlockEntityTypeRegistry.registrar(() -> BlockEntityType.Builder.create(SpiderEggCocoonBlockEntity::new, Blocks.SPIDER_EGG_COCOON).build()).register("spider_egg_cocoon");
 }

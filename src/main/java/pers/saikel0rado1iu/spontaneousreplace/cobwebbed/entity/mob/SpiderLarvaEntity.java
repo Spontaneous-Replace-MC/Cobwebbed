@@ -24,8 +24,6 @@
 
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.mob;
 
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.EscapeDangerGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -65,8 +63,8 @@ public class SpiderLarvaEntity extends VariantsSpiderEntity {
 	 * 修正眼睛高度
 	 */
 	@Override
-	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-		return super.getActiveEyeHeight(pose, dimensions) / 2;
+	public double getEyeY() {
+		return super.getEyeY() / 2;
 	}
 	
 	/**

@@ -29,7 +29,10 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryWrapper;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * <h2 style="color:FFC800">配方生成器</h2>
@@ -39,8 +42,8 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
  * @since 1.0.0
  */
 final class RecipeGenerator extends FabricRecipeProvider {
-	RecipeGenerator(FabricDataOutput output) {
-		super(output);
+	RecipeGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture);
 	}
 	
 	@Override

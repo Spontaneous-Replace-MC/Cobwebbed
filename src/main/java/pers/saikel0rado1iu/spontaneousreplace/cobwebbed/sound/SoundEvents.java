@@ -24,6 +24,7 @@
 
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound;
 
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import pers.saikel0rado1iu.silk.api.spinningjenny.SoundEventRegistry;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
@@ -37,5 +38,5 @@ import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
  */
 public interface SoundEvents extends SoundEventRegistry {
 	SoundEvent SPRAY_TOXIN = SoundEventRegistry.registrar(() -> SoundEvent.of(SpontaneousReplace.INSTANCE.ofId("spray_poison_spider.spray_toxin"))).register();
-	SoundEvent EQUIP_SPIDER_LEATHER_ARMOR = SoundEventRegistry.registrar(() -> SoundEvent.of(SpontaneousReplace.INSTANCE.ofId("spider_leather_armor.equip"))).register();
+	RegistryEntry<SoundEvent> EQUIP_SPIDER_LEATHER_ARMOR = RegistryEntry.of(SoundEventRegistry.registrar(() -> SoundEvent.of(SpontaneousReplace.INSTANCE.ofId("spider_leather_armor.equip"))).register());
 }

@@ -25,7 +25,12 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect;
 
 
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import pers.saikel0rado1iu.silk.api.spinningjenny.StatusEffectRegistry;
+import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
 
 /**
  * <h2 style="color:FFC800">状态效果集</h2>
@@ -35,5 +40,5 @@ import pers.saikel0rado1iu.silk.api.spinningjenny.StatusEffectRegistry;
  * @since 1.0.0
  */
 public interface StatusEffects extends StatusEffectRegistry {
-	SpiderCamouflage SPIDER_CAMOUFLAGE = StatusEffectRegistry.registrar(SpiderCamouflage::new).register("spider_camouflage");
+	RegistryEntry<StatusEffect> SPIDER_CAMOUFLAGE = Registry.registerReference(Registries.STATUS_EFFECT, SpontaneousReplace.INSTANCE.ofId("spider_camouflage"), StatusEffectRegistry.registrar(SpiderCamouflage::new).register("spider_camouflage"));
 }

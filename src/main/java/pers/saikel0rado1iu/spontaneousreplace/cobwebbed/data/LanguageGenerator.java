@@ -25,6 +25,7 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.registry.RegistryWrapper;
 import pers.saikel0rado1iu.silk.api.codex.OptionTexts;
 import pers.saikel0rado1iu.silk.api.generate.data.LinkedLanguageProvider;
 import pers.saikel0rado1iu.silk.api.pattern.widget.WidgetTexts;
@@ -36,6 +37,8 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity.effect.StatusEffe
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * <h2 style="color:FFC800">语言生成器</h2>
  * 毛骨森然的全球化语言生成器
@@ -45,12 +48,12 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.sound.SoundEvents;
  */
 interface LanguageGenerator {
 	final class EnUs extends LinkedLanguageProvider {
-		EnUs(FabricDataOutput dataOutput) {
-			super(dataOutput, "en_us");
+		EnUs(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+			super(dataOutput, "en_us", registryLookup);
 		}
 		
 		@Override
-		public void generateTranslations(TranslationBuilder translationBuilder) {
+		public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
 			translationBuilder.add(comment("note"), "Origin Language is Simplified Chinese(zh_cn)");
 			translationBuilder.add(i18nName(Cobwebbed.INSTANCE), "'Cobwebbed' DLC");
 			translationBuilder.add(i18nSummary(Cobwebbed.INSTANCE), "A SR expansion that adds various spider variants and exclusive biomes.");
@@ -93,11 +96,11 @@ interface LanguageGenerator {
 			translationBuilder.add(EntityTypes.GUARD_SPIDER, "Guard Spider");
 			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "Spray Poison Spider");
 			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "Weaving-Web Spider");
-			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "Spider Camouflage");
+			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE.value(), "Spider Camouflage");
 			translationBuilder.add(soundSub(SoundEvents.SPRAY_TOXIN), "Spray poison spider spray toxin");
-			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR), "Spider leather armor sizzle");
-			translationBuilder.add(advancementTitle(AdvancementGenerator.ROOT), "Spider Biome");
-			translationBuilder.add(advancementDesc(AdvancementGenerator.ROOT), "Contact to spontaneous evolving spider biome");
+			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR.value()), "Spider leather armor sizzle");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.__ROOT), "Spider Biome");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.__ROOT), "Contact to spontaneous evolving spider biome");
 			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_A_NEW_SPIDER), "A New Spider?");
 			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_A_NEW_SPIDER), "Kill a spontaneous-replace spider variant");
 			translationBuilder.add(advancementTitle(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "Take This");
@@ -112,12 +115,12 @@ interface LanguageGenerator {
 	}
 	
 	final class ZhCn extends LinkedLanguageProvider {
-		ZhCn(FabricDataOutput dataOutput) {
-			super(dataOutput, "zh_cn");
+		ZhCn(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+			super(dataOutput, "zh_cn", registryLookup);
 		}
 		
 		@Override
-		public void generateTranslations(TranslationBuilder translationBuilder) {
+		public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
 			translationBuilder.add(comment("note"), "原生语言");
 			translationBuilder.add(i18nName(Cobwebbed.INSTANCE), "「蛛丝网迹」拓展包");
 			translationBuilder.add(i18nSummary(Cobwebbed.INSTANCE), "添加了多种蜘蛛变种与专属生物群系的「自然更替」拓展");
@@ -160,11 +163,11 @@ interface LanguageGenerator {
 			translationBuilder.add(EntityTypes.GUARD_SPIDER, "蜘蛛卫兵");
 			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "喷吐毒蛛");
 			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "织网蜘蛛");
-			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛伪装");
+			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE.value(), "蜘蛛伪装");
 			translationBuilder.add(soundSub(SoundEvents.SPRAY_TOXIN), "喷吐毒蛛：喷吐毒素");
-			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR), "蜘蛛皮甲：摩挲");
-			translationBuilder.add(advancementTitle(AdvancementGenerator.ROOT), "蜘蛛群系");
-			translationBuilder.add(advancementDesc(AdvancementGenerator.ROOT), "接触到自然演变的蜘蛛群系");
+			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR.value()), "蜘蛛皮甲：摩挲");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.__ROOT), "蜘蛛群系");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.__ROOT), "接触到自然演变的蜘蛛群系");
 			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_A_NEW_SPIDER), "新的蜘蛛？");
 			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_A_NEW_SPIDER), "击杀一只特殊的蜘蛛变体");
 			translationBuilder.add(advancementTitle(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "来尝尝这个");
@@ -179,12 +182,12 @@ interface LanguageGenerator {
 	}
 	
 	final class ZhHk extends LinkedLanguageProvider {
-		ZhHk(FabricDataOutput dataOutput) {
-			super(dataOutput, "zh_hk");
+		ZhHk(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+			super(dataOutput, "zh_hk", registryLookup);
 		}
 		
 		@Override
-		public void generateTranslations(TranslationBuilder translationBuilder) {
+		public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
 			translationBuilder.add(comment("note"), "原生語言為簡體中文(zh_cn)");
 			translationBuilder.add(i18nName(Cobwebbed.INSTANCE), "「蛛絲網跡」擴展包");
 			translationBuilder.add(i18nSummary(Cobwebbed.INSTANCE), "添加咗多種蜘蛛變種與專屬生物羣落嘅「自然更替」擴展");
@@ -227,11 +230,11 @@ interface LanguageGenerator {
 			translationBuilder.add(EntityTypes.GUARD_SPIDER, "蜘蛛衞兵");
 			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "噴吐毒蛛");
 			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "織網蜘蛛");
-			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛偽裝");
+			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE.value(), "蜘蛛偽裝");
 			translationBuilder.add(soundSub(SoundEvents.SPRAY_TOXIN), "噴吐毒蛛噴吐毒素");
-			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR), "裝備蜘蛛皮甲");
-			translationBuilder.add(advancementTitle(AdvancementGenerator.ROOT), "蜘蛛羣落");
-			translationBuilder.add(advancementDesc(AdvancementGenerator.ROOT), "接觸到自然演變嘅蜘蛛羣落");
+			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR.value()), "裝備蜘蛛皮甲");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.__ROOT), "蜘蛛羣落");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.__ROOT), "接觸到自然演變嘅蜘蛛羣落");
 			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_A_NEW_SPIDER), "新嘅蜘蛛？");
 			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_A_NEW_SPIDER), "擊殺一隻特殊嘅蜘蛛變體");
 			translationBuilder.add(advancementTitle(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "來嚐嚐這個");
@@ -246,12 +249,12 @@ interface LanguageGenerator {
 	}
 	
 	final class ZhTw extends LinkedLanguageProvider {
-		ZhTw(FabricDataOutput dataOutput) {
-			super(dataOutput, "zh_tw");
+		ZhTw(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+			super(dataOutput, "zh_tw", registryLookup);
 		}
 		
 		@Override
-		public void generateTranslations(TranslationBuilder translationBuilder) {
+		public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
 			translationBuilder.add(comment("note"), "原生語言為簡體中文(zh_cn)");
 			translationBuilder.add(i18nName(Cobwebbed.INSTANCE), "「蛛絲網跡」擴充套件");
 			translationBuilder.add(i18nSummary(Cobwebbed.INSTANCE), "添加了多種蜘蛛變種與專屬生態域的「自然更替」擴充套件");
@@ -294,11 +297,11 @@ interface LanguageGenerator {
 			translationBuilder.add(EntityTypes.GUARD_SPIDER, "蜘蛛衛兵");
 			translationBuilder.add(EntityTypes.SPRAY_POISON_SPIDER, "噴吐毒蛛");
 			translationBuilder.add(EntityTypes.WEAVING_WEB_SPIDER, "織網蜘蛛");
-			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE, "蜘蛛偽裝");
+			translationBuilder.add(StatusEffects.SPIDER_CAMOUFLAGE.value(), "蜘蛛偽裝");
 			translationBuilder.add(soundSub(SoundEvents.SPRAY_TOXIN), "噴吐毒蛛噴吐毒素");
-			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR), "蜘蛛皮甲裝備聲");
-			translationBuilder.add(advancementTitle(AdvancementGenerator.ROOT), "蜘蛛生態域");
-			translationBuilder.add(advancementDesc(AdvancementGenerator.ROOT), "接觸到自然演變的蜘蛛生態域");
+			translationBuilder.add(soundSub(SoundEvents.EQUIP_SPIDER_LEATHER_ARMOR.value()), "蜘蛛皮甲裝備聲");
+			translationBuilder.add(advancementTitle(AdvancementGenerator.__ROOT), "蜘蛛生態域");
+			translationBuilder.add(advancementDesc(AdvancementGenerator.__ROOT), "接觸到自然演變的蜘蛛生態域");
 			translationBuilder.add(advancementTitle(AdvancementGenerator.KILL_A_NEW_SPIDER), "新的蜘蛛？");
 			translationBuilder.add(advancementDesc(AdvancementGenerator.KILL_A_NEW_SPIDER), "擊殺一隻特殊的蜘蛛變體");
 			translationBuilder.add(advancementTitle(AdvancementGenerator.SHOT_SPRAY_POISON_SPIDER), "來嚐嚐這個");

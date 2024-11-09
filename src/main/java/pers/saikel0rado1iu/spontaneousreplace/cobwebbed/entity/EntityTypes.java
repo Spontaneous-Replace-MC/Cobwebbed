@@ -25,11 +25,10 @@
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.EntityDimensions;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.SpawnLocationTypes;
 import net.minecraft.world.Heightmap;
 import pers.saikel0rado1iu.silk.api.base.common.util.SpawnUtil;
 import pers.saikel0rado1iu.silk.api.spinningjenny.EntityTypeRegistry;
@@ -46,26 +45,33 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.registry.tag.BiomeTags;
  * @since 1.0.0
  */
 public interface EntityTypes extends EntityTypeRegistry {
-	EntityType<ToxinEntity> TOXIN = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.<ToxinEntity>create(SpawnGroup.MISC, ToxinEntity::new)
-					.dimensions(EntityDimensions.fixed(EntityUtil.PROJECTILE_BOX, EntityUtil.PROJECTILE_BOX)).trackRangeBlocks(EntityUtil.PROJECTILE_RANGE).trackedUpdateRate(EntityUtil.PROJECTILE_UPDATE_RATE).build())
+	EntityType<ToxinEntity> TOXIN = EntityTypeRegistry.registrar(() -> EntityType.Builder.<ToxinEntity>create(ToxinEntity::new, SpawnGroup.MISC)
+					.dimensions(EntityUtil.PROJECTILE_BOX, EntityUtil.PROJECTILE_BOX)
+					.maxTrackingRange(EntityUtil.PROJECTILE_MAX_TRACKING_RANGE)
+					.trackingTickInterval(EntityUtil.PROJECTILE_TRACKING_TICK_INTERVAL)
+					.build())
 			.register("toxin_projectile");
-	EntityType<SpiderLarvaEntity> SPIDER_LARVA = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(SpiderLarvaEntity::new)
-					.dimensions(EntityDimensions.fixed(0.75F, 0.5F)).build())
+	EntityType<SpiderLarvaEntity> SPIDER_LARVA = EntityTypeRegistry.registrar(() -> FabricEntityType.Builder.createMob(SpiderLarvaEntity::new, SpawnGroup.MONSTER, mob -> mob)
+					.dimensions(0.75F, 0.5F)
+					.build())
 			.other(spiderLarvaEntityEntityType -> FabricDefaultAttributeRegistry.register(spiderLarvaEntityEntityType, SpiderLarvaEntity.createSpiderAttributes()))
 			.register(SpiderLarvaEntity.ID);
-	EntityType<GuardSpiderEntity> GUARD_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(GuardSpiderEntity::new)
-					.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(GuardSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build())
-					.dimensions(EntityDimensions.fixed(1.75F, 1)).build())
+	EntityType<GuardSpiderEntity> GUARD_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityType.Builder.createMob(GuardSpiderEntity::new, SpawnGroup.MONSTER, mob ->
+							mob.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(GuardSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build()))
+					.dimensions(1.75F, 1)
+					.build())
 			.other(guardSpiderEntityEntityType -> FabricDefaultAttributeRegistry.register(guardSpiderEntityEntityType, GuardSpiderEntity.createSpiderAttributes()))
 			.register(GuardSpiderEntity.ID);
-	EntityType<SprayPoisonSpiderEntity> SPRAY_POISON_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(SprayPoisonSpiderEntity::new)
-					.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(SprayPoisonSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build())
-					.dimensions(EntityDimensions.fixed(1.5F, 0.85F)).build())
+	EntityType<SprayPoisonSpiderEntity> SPRAY_POISON_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityType.Builder.createMob(SprayPoisonSpiderEntity::new, SpawnGroup.MONSTER, mob ->
+							mob.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(SprayPoisonSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build()))
+					.dimensions(1.5F, 0.85F)
+					.build())
 			.other(sprayPoisonSpiderEntityEntityType -> FabricDefaultAttributeRegistry.register(sprayPoisonSpiderEntityEntityType, SprayPoisonSpiderEntity.createSpiderAttributes()))
 			.register(SprayPoisonSpiderEntity.ID);
-	EntityType<WeavingWebSpiderEntity> WEAVING_WEB_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(WeavingWebSpiderEntity::new)
-					.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(WeavingWebSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build())
-					.dimensions(EntityDimensions.fixed(1.4F, 0.9F)).build())
+	EntityType<WeavingWebSpiderEntity> WEAVING_WEB_SPIDER = EntityTypeRegistry.registrar(() -> FabricEntityType.Builder.createMob(WeavingWebSpiderEntity::new, SpawnGroup.MONSTER, mob ->
+							mob.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnUtil.builder(WeavingWebSpiderEntity.class).monster().biome(biomeRegistryEntry -> biomeRegistryEntry.isIn(BiomeTags.IS_SPIDER_BIOME)).build()))
+					.dimensions(1.4F, 0.9F)
+					.build())
 			.other(weavingWebSpiderEntityEntityType -> FabricDefaultAttributeRegistry.register(weavingWebSpiderEntityEntityType, WeavingWebSpiderEntity.createSpiderAttributes()))
 			.register(WeavingWebSpiderEntity.ID);
 }

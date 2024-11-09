@@ -24,7 +24,7 @@
 
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.gen.foliage;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -45,7 +45,7 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks;
  * @since 1.0.0
  */
 public class CobwebbyOakFoliagePlacer extends DarkOakFoliagePlacer {
-	public static final Codec<CobwebbyOakFoliagePlacer> CODEC = RecordCodecBuilder.create(instance ->
+	public static final MapCodec<CobwebbyOakFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 			fillFoliagePlacerFields(instance).apply(instance, CobwebbyOakFoliagePlacer::new));
 	
 	public CobwebbyOakFoliagePlacer(IntProvider radius, IntProvider offset) {

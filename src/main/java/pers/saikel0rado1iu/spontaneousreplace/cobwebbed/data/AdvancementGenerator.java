@@ -24,23 +24,26 @@
 
 package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.data;
 
-import com.google.common.base.Suppliers;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.criterion.*;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtString;
+import net.minecraft.potion.Potions;
 import net.minecraft.predicate.DamagePredicate;
 import net.minecraft.predicate.entity.EntityEffectPredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biome;
 import pers.saikel0rado1iu.silk.api.generate.data.AdvancementGenUtil;
 import pers.saikel0rado1iu.spontaneousreplace.SpontaneousReplace;
 import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.Cobwebbed;
@@ -50,6 +53,7 @@ import pers.saikel0rado1iu.spontaneousreplace.cobwebbed.world.biome.BiomeKeys;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import static net.minecraft.item.Items.TIPPED_ARROW;
@@ -63,12 +67,12 @@ import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items.*;
  * @since 1.0.0
  */
 final class AdvancementGenerator extends FabricAdvancementProvider {
-	static final AdvancementEntry ROOT = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, Cobwebbed.INSTANCE.id())
+	static final AdvancementEntry __ROOT = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, Cobwebbed.INSTANCE.id())
 			.display(COBWEBBY_SOIL, new Identifier("textures/block/calcite.png"), AdvancementFrame.TASK, true, true, false)
-			.criterion("biome", TickCriterion.Conditions.createLocation(Optional.of(EntityPredicate.Builder.create().location(LocationPredicate.Builder.createBiome(BiomeKeys.CREEPY_SPIDER_FOREST)).build())))
+			.criterion("biome", TickCriterion.Conditions.createTick())
 			.build();
 	static final AdvancementEntry KILL_A_NEW_SPIDER = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "kill_a_new_spider")
-			.parent(ROOT)
+			.parent(__ROOT)
 			.display(SPIDER_LEG, null, AdvancementFrame.TASK, true, true, false)
 			.criterion(Registries.ENTITY_TYPE.getId(EntityTypes.SPIDER_LARVA).toString(), OnKilledCriterion.Conditions
 					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.SPIDER_LARVA)))
@@ -86,11 +90,7 @@ final class AdvancementGenerator extends FabricAdvancementProvider {
 			.build();
 	static final AdvancementEntry SHOT_SPRAY_POISON_SPIDER = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "shot_spray_poison_spider")
 			.parent(KILL_A_NEW_SPIDER)
-			.display(Suppliers.memoize(() -> {
-				ItemStack stack = new ItemStack(TIPPED_ARROW);
-				stack.setSubNbt("Potion", NbtString.of("poison"));
-				return stack;
-			}).get(), null, AdvancementFrame.TASK, true, true, false)
+			.display(PotionContentsComponent.createStack(TIPPED_ARROW, Potions.POISON), null, AdvancementFrame.TASK, true, true, false)
 			.criterion("shot_spray_poison_spider", PlayerHurtEntityCriterion.Conditions.create(
 					Optional.of(DamagePredicate.Builder.create().sourceEntity(EntityPredicate.Builder.create().type(EntityType.ARROW).build()).build()),
 					Optional.of(EntityPredicate.Builder.create().type(EntityTypes.SPRAY_POISON_SPIDER).build())))
@@ -103,7 +103,7 @@ final class AdvancementGenerator extends FabricAdvancementProvider {
 	static final AdvancementEntry HAVE_EFFECT_SPIDER_CAMOUFLAGE = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "have_effect_spider_camouflage")
 			.parent(HAVE_A_DEPOISON_SPIDER_LEG)
 			.display(SPIDER_EGG_COCOON, null, AdvancementFrame.TASK, true, true, false)
-			.criterion(Registries.STATUS_EFFECT.getId(StatusEffects.SPIDER_CAMOUFLAGE) + "",
+			.criterion(Registries.STATUS_EFFECT.getId(StatusEffects.SPIDER_CAMOUFLAGE.value()) + "",
 					EffectsChangedCriterion.Conditions.create(EntityEffectPredicate.Builder.create().addEffect(StatusEffects.SPIDER_CAMOUFLAGE)))
 			.build();
 	static final AdvancementEntry KILL_ALL_SPIDERS = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "kill_all_spiders")
@@ -123,13 +123,19 @@ final class AdvancementGenerator extends FabricAdvancementProvider {
 					.createPlayerKilledEntity(EntityPredicate.Builder.create().type(EntityTypes.WEAVING_WEB_SPIDER)))
 			.build();
 	
-	AdvancementGenerator(FabricDataOutput output) {
-		super(output);
+	AdvancementGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+		super(output, registryLookup);
 	}
 	
 	@Override
-	public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
-		consumer.accept(ROOT);
+	public void generateAdvancement(RegistryWrapper.WrapperLookup wrapperLookup, Consumer<AdvancementEntry> consumer) {
+		RegistryEntryLookup<Biome> registryEntryLookup = wrapperLookup.getWrapperOrThrow(RegistryKeys.BIOME);
+		// 真正的 ROOT
+		consumer.accept(AdvancementGenUtil
+				.builder(SpontaneousReplace.INSTANCE, Cobwebbed.INSTANCE.id())
+				.display(COBWEBBY_SOIL, new Identifier("textures/block/calcite.png"), AdvancementFrame.TASK, true, true, false)
+				.criterion("biome", TickCriterion.Conditions.createLocation(LocationPredicate.Builder.createBiome(registryEntryLookup.getOrThrow(BiomeKeys.CREEPY_SPIDER_FOREST))))
+				.build());
 		consumer.accept(KILL_A_NEW_SPIDER);
 		consumer.accept(SHOT_SPRAY_POISON_SPIDER);
 		consumer.accept(HAVE_A_DEPOISON_SPIDER_LEG);
