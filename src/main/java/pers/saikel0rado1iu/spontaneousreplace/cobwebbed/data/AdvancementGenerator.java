@@ -68,7 +68,7 @@ import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.item.Items.*;
  */
 final class AdvancementGenerator extends FabricAdvancementProvider {
 	static final AdvancementEntry __ROOT = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, Cobwebbed.INSTANCE.id())
-			.display(COBWEBBY_SOIL, new Identifier("textures/block/calcite.png"), AdvancementFrame.TASK, true, true, false)
+			.display(COBWEBBY_SOIL, Identifier.of("textures/block/calcite.png"), AdvancementFrame.TASK, true, true, false)
 			.criterion("biome", TickCriterion.Conditions.createTick())
 			.build();
 	static final AdvancementEntry KILL_A_NEW_SPIDER = AdvancementGenUtil.builder(SpontaneousReplace.INSTANCE, "kill_a_new_spider")
@@ -133,7 +133,7 @@ final class AdvancementGenerator extends FabricAdvancementProvider {
 		// 真正的 ROOT
 		consumer.accept(AdvancementGenUtil
 				.builder(SpontaneousReplace.INSTANCE, Cobwebbed.INSTANCE.id())
-				.display(COBWEBBY_SOIL, new Identifier("textures/block/calcite.png"), AdvancementFrame.TASK, true, true, false)
+				.display(COBWEBBY_SOIL, Identifier.of("textures/block/calcite.png"), AdvancementFrame.TASK, true, true, false)
 				.criterion("biome", TickCriterion.Conditions.createLocation(LocationPredicate.Builder.createBiome(registryEntryLookup.getOrThrow(BiomeKeys.CREEPY_SPIDER_FOREST))))
 				.build());
 		consumer.accept(KILL_A_NEW_SPIDER);

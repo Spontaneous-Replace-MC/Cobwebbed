@@ -27,8 +27,8 @@ package pers.saikel0rado1iu.spontaneousreplace.cobwebbed.client.block;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.world.biome.FoliageColors;
 import pers.saikel0rado1iu.silk.api.spinningjenny.BlockRegistry;
 
 import static pers.saikel0rado1iu.spontaneousreplace.cobwebbed.block.Blocks.*;

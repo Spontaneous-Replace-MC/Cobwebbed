@@ -53,7 +53,7 @@ public interface Cobwebbed extends SpontaneousReplace {
 	@Override
 	default Optional<Identifier> icon() {
 		Optional<String> path = mod().getMetadata().getIconPath(4);
-		return path.map(id -> new Identifier(SpontaneousReplace.INSTANCE.id(), "cobwebbed-icon.png"));
+		return path.map(id -> Identifier.of(SpontaneousReplace.INSTANCE.id(), "cobwebbed-icon.png"));
 	}
 	
 	@Override

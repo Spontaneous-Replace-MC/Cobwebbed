@@ -69,12 +69,12 @@ public class ToxinEntityRenderer extends EntityRenderer<ToxinEntity> {
 	@Override
 	public void render(ToxinEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
 		matrixStack.push();
-		matrixStack.translate(0.0, 0.15f, 0.0);
-		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(g, mobEntity.prevYaw, mobEntity.getYaw()) - 90.0F));
+		matrixStack.translate(0, 0.15F, 0);
+		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(g, mobEntity.prevYaw, mobEntity.getYaw()) - 90));
 		matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(g, mobEntity.prevPitch, mobEntity.getPitch())));
-		model.setAngles(mobEntity, g, 0.0f, -0.1f, 0.0f, 0.0f);
+		model.setAngles(mobEntity, g, 0, -0.1F, 0, 0);
 		VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(model.getLayer(TEXTURE));
-		model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0f);
+		model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
 		matrixStack.pop();
 		super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
 	}

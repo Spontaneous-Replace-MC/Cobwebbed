@@ -35,7 +35,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import pers.saikel0rado1iu.silk.api.ropestick.armor.ArmorHelper;
-import pers.saikel0rado1iu.silk.api.ropestick.component.DataComponentTypes;
+import pers.saikel0rado1iu.silk.api.ropestick.component.ComponentTypes;
 import pers.saikel0rado1iu.silk.api.ropestick.component.type.EffectiveItemSlotData;
 import pers.saikel0rado1iu.silk.api.ropestick.component.type.InherentStatusEffectData;
 import pers.saikel0rado1iu.silk.api.ropestick.component.type.InherentStatusEffectsComponent;
@@ -105,7 +105,7 @@ public enum ArmorMaterials implements ArmorHelper {
 	 * @return 物品设置
 	 */
 	public static Item.Settings getSpiderLeatherSetting() {
-		return new Item.Settings().component(DataComponentTypes.INHERENT_STATUS_EFFECTS, InherentStatusEffectsComponent.of(
+		return new Item.Settings().component(ComponentTypes.INHERENT_STATUS_EFFECTS, InherentStatusEffectsComponent.of(
 				InherentStatusEffectData.create(SPIDER_CAMOUFLAGE,
 						1,
 						1,
@@ -114,6 +114,7 @@ public enum ArmorMaterials implements ArmorHelper {
 						2,
 						EffectiveItemSlotData.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST))));
 	}
+	
 	@Override
 	public Identifier id() {
 		return SpontaneousReplace.INSTANCE.ofId(name);
